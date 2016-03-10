@@ -3,19 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package Profiles;
 
-
+import java.util.Scanner;
 
 /**
  *
  * @author KimBrian
  */
-public class AdminProfile extends Profile{
+public class AdminProfile extends Profile {
+
     private String accountType = "Admin";
+
     public AdminProfile(String fn, String ln, String u) {
         super(fn, ln, u);
     }
+
     public String getAccountType() {
         return accountType;
     }
+ 
 }

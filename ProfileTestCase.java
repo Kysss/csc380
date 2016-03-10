@@ -3,58 +3,69 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+package Profiles;
 
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
+
 /**
  *
  * @author KimBrian
  */
-public class ProfileTestCase extends TestCase{
-    
-        String firstName = null;
-        String lastName = null;
-        String accountType;
-        String userName = null;
-        
-        @Test
-    public void testSetFirstName(){
+public class ProfileTestCase extends TestCase {
+
+    String firstName = null;
+    String lastName = null;
+    String accountType;
+    String userName = null;
+
+    @Test
+    public void testSetFirstName() {
         AdminProfile p = new AdminProfile(firstName, lastName, userName);
         //Test First Name Assignment
         String fName = "Kim Brian";
         p.setFirstname(fName);
-        assertEquals("Kim Brian",p.getFirstname() );
+        assertEquals("Kim Brian", p.getFirstname());
     }
-    public void testSetLastName (){
+
+    public void testSetLastName() {
         AdminProfile p = new AdminProfile(firstName, lastName, userName);
         //Test Last Name Assignment
         String lName = "Fadul";
         p.setLastname(lName);
-        assertEquals("Fadul",p.getLastname() );
-        
+        assertEquals("Fadul", p.getLastname());
     }
-    public void testSetUserName (){
+
+    public void testSetUserName() {
         AdminProfile p = new AdminProfile(firstName, lastName, userName);
         //Test User Name Assignment
         String uName = "kimfadul";
         p.setUsername(uName);
-        assertEquals("kimfadul",p.getUsername());
+        assertEquals("kimfadul", p.getUsername());
     }
-    public void testGetAccountType (){
+
+    public void testGetAccountType() {
         AdminProfile p = new AdminProfile(firstName, lastName, userName);
         //Test Get Account Type
-        assertEquals("Admin",p.getAccountType() );
-        
-        UserProfile user= new UserProfile("Yingying", " Xia", "yxia");
-        assertEquals("User", user.getAccountType());
-        assertEquals("yxia", user.getUsername());
-        AdminProfile aUser = new AdminProfile("Yingying","Xia", "yxia");
-        assertEquals("Admin", aUser.getAccountType());
+        assertEquals("Admin", p.getAccountType());
+    }
+    
+    public void testSetPassword () {
+        AdminProfile p = new AdminProfile (firstName, lastName, userName);
+        //Test Get Password
+        String userPassword = "Password";
+        p.setPassword(userPassword);
+        assertEquals("Password", p.getPassword());
+    }
+    
+    public void testComparesPassword () {
+       AdminProfile p = new AdminProfile (firstName, lastName, userName);
+       //Test Comparing Passwords
+       String userPassword = "Password";
+       p.setPassword(userPassword);
+        System.out.println("Enter Your Password:");
+       p.comparesPassword();
+       //If user input is not Password return false, return true
     }
 }
-
-
-
-
