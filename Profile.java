@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Profiles;
+
 
 import java.util.Scanner;
 
@@ -70,6 +70,10 @@ public abstract class Profile {
             System.out.println("Wrong Password. Closing.");
             return false;
         }
+    }
+    
+    public void postRating(){
+        
     }
 
 }

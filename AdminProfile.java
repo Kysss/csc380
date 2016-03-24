@@ -3,8 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Profiles;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -13,6 +13,8 @@ import java.util.Scanner;
  */
 public class AdminProfile extends Profile {
 
+   private HashMap restaurants = new HashMap(); //should = the hashmap after parsing the restaurant database
+   private HashMap usersAccount = new HashMap(); //should = the hashmap after parsing the user database.
     private String accountType = "Admin";
 
     public AdminProfile(String fn, String ln, String u) {
@@ -22,5 +24,30 @@ public class AdminProfile extends Profile {
     public String getAccountType() {
         return accountType;
     }
+    public void deleteUser(){
+        
+    }
+    
+    public void deleteRes(){
+        
+    }
+    public void setUserPassword(){
+        
+    }
+    public void deleteUserRating(){
+        
+    }
+    
+    public void setResName(){
+        
+    }
+    public void setResContact(){
+        
+    }
+    
+    public void setResAddress(){
+        
+    }
  
+    
 }
