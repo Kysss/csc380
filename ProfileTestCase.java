@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Profiles;
+
 
 import junit.framework.TestCase;
 import org.junit.Before;
@@ -66,6 +66,7 @@ public class ProfileTestCase extends TestCase {
        p.setPassword(userPassword);
         System.out.println("Enter Your Password:");
        p.comparesPassword();
+       assertEquals(true, p.comparesPassword());
        //If user input is not Password return false, return true
     }
 }

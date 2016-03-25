@@ -20,7 +20,7 @@ public class RestaurantTestCase extends TestCase {
         Restaurant r = new Restaurant(name);
         String newName = "Domino's";
         r.setName(newName);
-        //  assertEquals("This should return false", "Domino", r.rName); //expecting false
+        //      assertEquals("This should return false", "Domino", r.rName); //expecting false
         assertEquals("Setting the name as Domino's", "Domino's", r.rName); //should return true
     }
 
@@ -52,21 +52,21 @@ public class RestaurantTestCase extends TestCase {
 
         r.setType("Chinese");
         assertNotNull(r.rType); //should return true;
-       // assertNull(r.rType); //should return false;
+        // assertNull(r.rType); //should return false;
         assertEquals(true, r.rType.contains("Thai"));
         assertEquals(true, r.rType.contains("Chinese"));
-      //   assertEquals(true,r.rType.contains("Ba")); //should return false
+        //   assertEquals(true,r.rType.contains("Ba")); //should return false
 
     }
-    
+
     @Test
-    public void testRemoveType(){
+    public void testRemoveType() {
         Restaurant r = new Restaurant("Domino's");
         r.setType("Thai");
         r.setType("Chinese");
         r.removeType("Chinese");
-        assertEquals(true,r.rType.contains("Thai")); //should return true
-    //    assertEquals(true,r.rType.contains("Chinese")); //should fail 
+        assertEquals(true, r.rType.contains("Thai")); //should return true
+        //    assertEquals(true,r.rType.contains("Chinese")); //should fail 
     }
 
     @Test
@@ -82,7 +82,52 @@ public class RestaurantTestCase extends TestCase {
         assertEquals("Domino's", r.getName());
         assertEquals("60 SW 9th St, Oswego, NY 13126", r.getAddress());
         assertEquals("(315) 343-7250", r.getContact());
-        assertNull(r.getAverageRating());
+
     }
 
+    @Test
+    public void testAddRating() {
+        Double rating = 3.55;
+        Restaurant r = new Restaurant("Domino's");
+        r.addRating(rating);
+        
+        assertNotNull(r.ratingList);
+        assertEquals(true,r.ratingList.contains(3.55));
+     //   assertEquals(true,r.ratingList.contains(3.56)); //should return false
+    }
+    
+    @Test
+    public void testRemoveRating(){
+        Double rating = 3.9;
+        Double rating2 = 4.0;
+        Restaurant r = new Restaurant ("Domino's");
+        r.addRating(rating);
+        r.addRating(rating2);
+        assertNotNull(r.ratingList);
+        assertEquals(true,r.ratingList.contains(3.9));
+        assertEquals(true,r.ratingList.contains(4.0));
+        r.removeRating(3.9);
+       // assertEquals(true,r.ratingList.contains(3.9)); //should return false
+        assertEquals(false,r.ratingList.contains(3.9));
+        assertEquals(true,r.ratingList.contains(4.0));
+        //assertEquals(4.0,r.rAverageRating);
+    }
+    
+    public void testAverageRating(){
+        Double rating = 3.0;
+        Double rating2 = 6.0;
+        Double rating3 = 6.0;
+        Restaurant r = new Restaurant ("Domino's");
+        r.addRating(rating);
+        r.addRating(rating2);
+        r.addRating(rating3);
+        assertEquals(5.0,r.getAverageRating());
+        r.removeRating(rating3);
+        assertEquals(4.5,r.getAverageRating());
+        r.removeRating(rating);
+        assertEquals(6.0,r.getAverageRating());
+       //System.out.println("get average rating test" + r.getAverageRating());
+        r.removeRating(rating2);
+        assertEquals(0.0,r.getAverageRating());
+    }
 }
