@@ -17,7 +17,8 @@ public abstract class Profile {
     private String lastName;
     private String userName;
     private String password;
-
+ public ratingPost[] ratingHistory;
+ public int ratingPostCount = 0;
     public Profile(String fn, String ln, String u) {
         firstName = fn;
         lastName = ln;
@@ -71,5 +72,16 @@ public abstract class Profile {
             return false;
         }
     }
+    
+    public void addRatingPost(String title, Double rating, String content){
+       ratingPost rp  = new ratingPost(title,rating,content);
+       this.ratingHistory[ratingPostCount] = rp;
+       ratingPostCount ++;
+    }
+    
+    public ratingPost[] inspectRatingHistory(){
+        return this.ratingHistory;
+    }
+            
 
 }

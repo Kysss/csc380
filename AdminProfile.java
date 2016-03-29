@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 
-
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -17,6 +18,8 @@ public class AdminProfile extends Profile {
 
     private String accountType = "Admin";
     private HashMap<String, String> hm = new HashMap<>();
+  
+
     public AdminProfile(String fn, String ln, String u) {
         super(fn, ln, u);
         hm.put("YingYing", "Xia");
@@ -46,10 +49,21 @@ public class AdminProfile extends Profile {
         } while (b = false);
         return accepted;
     }
-    public boolean getHashMap (){
+
+    public boolean getHashMap() {
         if (hm.isEmpty()) {
             return false;
+        } else {
+            return true;
         }
-        else return true;
     }
+
+    public void addRestaurant(String path, Profile p, String name, String address, String contact, String rating) throws IOException {
+
+        new saveRestaurant(path, this, name, address, contact, rating);
+        System.out.println("Restaurant " + name + " added succesfully." );
+    }
+    
+    
+
 }
