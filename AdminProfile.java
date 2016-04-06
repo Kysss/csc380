@@ -1,4 +1,4 @@
-/*
+package com.kimbrian.csc380;/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -20,8 +20,8 @@ public class AdminProfile extends Profile {
     private HashMap<String, String> hm = new HashMap<>();
   
 
-    public AdminProfile(String fn, String ln, String u) {
-        super(fn, ln, u);
+    public AdminProfile(String fn, String ln, String e,  String u, String p, String sq, String sa) {
+        super(fn, ln, e, u, p, sq, sa);
         hm.put("YingYing", "Xia");
         hm.put("KimBrian", "Fadul");
         hm.put("Matt", "Reeves");
@@ -31,7 +31,7 @@ public class AdminProfile extends Profile {
         return accountType;
     }
 
-    public String logIn(String u, String p) {
+   public String logIn(String u, String p) {
         String accepted = "Logged In";
         boolean b = false;
         boolean userExists = hm.containsKey(u);
@@ -63,7 +63,4 @@ public class AdminProfile extends Profile {
         new saveRestaurant(path, this, name, address, contact, rating);
         System.out.println("Restaurant " + name + " added succesfully." );
     }
-    
-    
-
 }
