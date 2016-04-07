@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package csv;
+package com.kimbrian.searchrestaurantapplication;
 
 import com.opencsv.CSVReader;
 import java.io.FileNotFoundException;
@@ -20,17 +20,19 @@ public class hashmap {
         public HashMap<String,Profile> profile = new HashMap<String,Profile>();
     public hashmap(String profPath, String restPath) throws FileNotFoundException, IOException{
         
-        
-        
+
         CSVReader csvReader = new CSVReader(new FileReader(profPath));
         String[] row = null;
         while((row = csvReader.readNext())!=null){
-                Profile p = new UserProfile(row[0],row[2],row[3]);
-                p.setFirstname(row[2]);
-                p.setLastname(row[3]);
-                p.setUsername(row[0]);
-                p.setPassword(row[1]);
-                profile.put(row[0], p);
+                Profile p = new UserProfile(row[0],row[1],row[1],row[3],row[4],row[5],row[6]);
+                p.setFirstname(row[0]);
+                p.setLastname(row[1]);
+                p.setEmail(row[2]);
+                p.setUsername(row[3]);
+                p.setPassword(row[4]);
+                p.setSecurityQuestion(row[5]);
+                p.setSecurityAnswer(row[6]);
+                profile.put(row[3], p);
                 
             }
         csvReader.close();
