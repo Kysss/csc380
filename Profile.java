@@ -1,3 +1,4 @@
+package com.yingying.searchapp;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,14 +16,21 @@ public abstract class Profile {
 
     private String firstName;
     private String lastName;
+    private String email;
     private String userName;
     private String password;
+    private String securityQuestion;
+    private String securityAnswer;
  public ratingPost[] ratingHistory;
  public int ratingPostCount = 0;
-    public Profile(String fn, String ln, String u) {
+    public Profile(String fn, String ln, String e, String u, String p, String sq, String sa) {
         firstName = fn;
         lastName = ln;
+        email = e;
         userName = u;
+        password = p;
+        securityQuestion= sq;
+        securityAnswer= sa;
     }
     //Making profile info
 
@@ -34,12 +42,24 @@ public abstract class Profile {
         this.lastName = ln;
     }
 
+    public void setEmail (String e){
+        this.email = e;
+    }
+
     public void setUsername(String u) {
         this.userName = u;
     }
 
     public void setPassword(String p) {
         this.password = p;
+    }
+
+    public void setSecurityQuestion (String sq) {
+        this.securityQuestion = sq;
+    }
+
+    public void setSecurityAnswer (String sa) {
+        this.securityAnswer = sa;
     }
     //Viewing profile Informations
 
@@ -49,6 +69,10 @@ public abstract class Profile {
 
     public String getLastname() {
         return lastName;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public String getUsername() {
@@ -61,16 +85,12 @@ public abstract class Profile {
         return password;
     }
 
-    public boolean comparesPassword() {
-        Scanner scan = new Scanner(System.in);
-        String p = scan.nextLine();
-        if (p.equals(password)) {
-            System.out.println("You May Enter");
-            return true;
-        } else {
-            System.out.println("Wrong Password. Closing.");
-            return false;
-        }
+    public String getSecurityQuestion(){
+        return securityQuestion;
+    }
+
+    public String getSecurityAnswer(){
+        return securityAnswer;
     }
     
     public void addRatingPost(String title, Double rating, String content){

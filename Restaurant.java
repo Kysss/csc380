@@ -1,3 +1,4 @@
+package com.yingying.searchapp;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;

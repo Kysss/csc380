@@ -1,3 +1,4 @@
+package com.yingying.searchapp;
 
 import java.util.HashMap;
 import java.util.Scanner;

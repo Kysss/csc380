@@ -1,3 +1,5 @@
+
+package com.yingying.searchapp;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -17,15 +19,15 @@ public class UserProfile extends Profile {
     private String accountType = "User";
     private HashMap<String, String> hm = new HashMap<>();
 
-    public UserProfile(String fn, String ln, String u) {
-        super(fn, ln, u);
+    public UserProfile(String fn, String ln, String e, String u, String p, String sq, String sa) {
+        super(fn, ln, e, u, p, sq, sa);
     }
 
     public String getAccountType() {
         return accountType;
     }
 
-    public String signUp(String fn, String ln, String u, String p) {
+    public String signUp(String fn, String ln, String e, String u, String p) {
         String accepted = "Sign up finished";
         boolean b = false;
         boolean userExists = hm.containsKey(u);
@@ -36,6 +38,7 @@ public class UserProfile extends Profile {
             } else {
                 super.setFirstname(fn);
                 super.setLastname(ln);
+                super.setEmail(e);
                 super.setPassword(p);
                 super.setUsername(u);
                 hm.put(super.getUsername(), super.getPassword());
