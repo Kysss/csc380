@@ -1,4 +1,5 @@
-package com.yingying.searchapp;
+package com.kimbrian.searchrestaurantapplication;
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -19,33 +20,38 @@ public class ForgetPassword extends AppCompatActivity implements UEconfirm.UELis
     @Override
     public void CheckUE(String username, String email) {
         SQAconfirm QuestionPortion = (SQAconfirm) getSupportFragmentManager().findFragmentById(R.id.fragment2);
-        try {
-            hashmap hm = new hashmap("Userpass.csv", "Restaurant.csv");
-            if (hm.profile.containsKey(username) && email.equalsIgnoreCase(hm.profile.get(username).getEmail())) {
-                QuestionPortion.setSecurityQuestion(hm.profile.get(username).getSecurityQuestion(), hm.profile.get(username).getUsername());
+        //try {
+            //hashmap hm = new hashmap("Userpass.csv", "Restaurant.csv");
+            //if (hm.profile.containsKey(username) && email.equalsIgnoreCase(hm.profile.get(username).getEmail())) {
+            if (username.equals("Reeves") && email.equalsIgnoreCase("reeves@gmail.com")) {
+                //QuestionPortion.setSecurityQuestion(hm.profile.get(username).getSecurityQuestion(), hm.profile.get(username).getUsername());
+                QuestionPortion.setSecurityQuestion("Who are you?", "Reeves");
             }
-        } catch (IOException e) {
-            System.out.println("Error:" + e.getMessage());
-        }
+        //} catch (IOException e) {
+            //System.out.println("Error:" + e.getMessage());
+        //}
     }
 
     @Override
     public void CheckSA(String securityAnswer, String username) {
         ReturnPassword returnPassword = (ReturnPassword) getSupportFragmentManager().findFragmentById(R.id.fragment3);
-        try {
-            hashmap hm = new hashmap("Userpass.csv", "Restaurant.csv");
-            if (hm.profile.get(username).getSecurityAnswer().equalsIgnoreCase(securityAnswer)) {
-                returnPassword.setPassword(hm.profile.get(username).getPassword());
+        String trialAnswer = "Matt";
+        //try {
+            //hashmap hm = new hashmap("Userpass.csv", "Restaurant.csv");
+            //if (hm.profile.get(username).getSecurityAnswer().equalsIgnoreCase(securityAnswer)) {
+            if (trialAnswer.equalsIgnoreCase(securityAnswer)) {
+                //returnPassword.setPassword(hm.profile.get(username).getPassword());
+                returnPassword.setPassword("ThisIsYourPassword");
             }
-        } catch (IOException e) {
-            System.out.println("Error:" + e.getMessage());
-        }
+        //} catch (IOException e) {
+            //System.out.println("Error:" + e.getMessage());
+        //}
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-      //?  getMenuInflater().inflate(R.menu.menu_forget_password, menu);
+        getMenuInflater().inflate(R.menu.menu_forget_password, menu);
         return true;
     }
 
@@ -57,10 +63,10 @@ public class ForgetPassword extends AppCompatActivity implements UEconfirm.UELis
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-       // if (id == R.id.action_settings) {
-        //    return true;
-       // }
-//
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 }
