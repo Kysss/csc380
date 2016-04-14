@@ -1,18 +1,30 @@
-package com.kimbrian.searchrestaurantapplication;
-
+package com.yingying.searchapp;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import java.io.IOException;
 
 public class ForgetPassword extends AppCompatActivity implements UEconfirm.UEListener, SQAconfirm.SQAListener {
 
+
+    Context CTX = this;
+    Boolean checkStatus;
+    String name;
+    String question;
+    String answer;
+    String pass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password);
+        checkStatus = false;
 
     }
 
@@ -20,32 +32,69 @@ public class ForgetPassword extends AppCompatActivity implements UEconfirm.UELis
     @Override
     public void CheckUE(String username, String email) {
         SQAconfirm QuestionPortion = (SQAconfirm) getSupportFragmentManager().findFragmentById(R.id.fragment2);
-        //try {
-            //hashmap hm = new hashmap("Userpass.csv", "Restaurant.csv");
-            //if (hm.profile.containsKey(username) && email.equalsIgnoreCase(hm.profile.get(username).getEmail())) {
-            if (username.equals("Reeves") && email.equalsIgnoreCase("reeves@gmail.com")) {
-                //QuestionPortion.setSecurityQuestion(hm.profile.get(username).getSecurityQuestion(), hm.profile.get(username).getUsername());
-                QuestionPortion.setSecurityQuestion("Who are you?", "Reeves");
+      //  try {
+      //      hashmap hm = new hashmap("Userpass.csv", "Restaurant.csv");
+      //      if (hm.profile.containsKey(username) && email.equalsIgnoreCase(hm.profile.get(username).getEmail())) {
+      //          QuestionPortion.setSecurityQuestion(hm.profile.get(username).getSecurityQuestion(), hm.profile.get(username).getUsername());
+      //      }
+      //  } catch (IOException e) {
+      //      System.out.println("Error:" + e.getMessage());
+       // }
+
+        DatabseOperations DOP = new DatabseOperations(CTX);
+        name= null;
+        question = null;
+        answer = null;
+        pass= null;
+        Cursor CR = DOP.getInformation(DOP);
+        CR.moveToFirst();
+        checkStatus = false;
+
+        while(!CR.isAfterLast()){
+            if(username.equals(CR.getString(0))&& email.equals(CR.getString(4))){
+                pass = CR.getString(1);
+                name = CR.getString(0);
+                question = CR.getString(5);
+                answer = CR.getString(6);
+
+                checkStatus = true;
+                break;
+            }else{
+                CR.moveToNext();
             }
-        //} catch (IOException e) {
-            //System.out.println("Error:" + e.getMessage());
-        //}
+
+        }
+
+        if(checkStatus == true){
+            Toast.makeText(getBaseContext(), "Please answer the security question below", Toast.LENGTH_LONG).show();
+            QuestionPortion.setSecurityQuestion(question, name);
+        }else if (checkStatus == false){
+            Toast.makeText(getBaseContext(),"Sorry, your provided information do not match.",Toast.LENGTH_LONG).show();
+
+        }
+
     }
 
     @Override
     public void CheckSA(String securityAnswer, String username) {
         ReturnPassword returnPassword = (ReturnPassword) getSupportFragmentManager().findFragmentById(R.id.fragment3);
-        String trialAnswer = "Matt";
-        //try {
-            //hashmap hm = new hashmap("Userpass.csv", "Restaurant.csv");
-            //if (hm.profile.get(username).getSecurityAnswer().equalsIgnoreCase(securityAnswer)) {
-            if (trialAnswer.equalsIgnoreCase(securityAnswer)) {
-                //returnPassword.setPassword(hm.profile.get(username).getPassword());
-                returnPassword.setPassword("ThisIsYourPassword");
-            }
-        //} catch (IOException e) {
-            //System.out.println("Error:" + e.getMessage());
-        //}
+       // try {
+      //      hashmap hm = new hashmap("Userpass.csv", "Restaurant.csv");
+       //     if (hm.profile.get(username).getSecurityAnswer().equalsIgnoreCase(securityAnswer)) {
+      //          returnPassword.setPassword(hm.profile.get(username).getPassword());
+      //      }
+      //  } catch (IOException e) {
+      //      System.out.println("Error:" + e.getMessage());
+      //  }
+
+        if(answer.equalsIgnoreCase(securityAnswer)){
+            returnPassword.setPassword(pass);
+        }else{
+            Toast.makeText(getBaseContext(),"Sorry.Please try again.",Toast.LENGTH_LONG).show();
+            finish();
+            Intent forgetIntent = new Intent(ForgetPassword.this, ForgetPassword.class);
+           ForgetPassword.this.startActivity(forgetIntent);
+        }
     }
 
     @Override
@@ -66,7 +115,7 @@ public class ForgetPassword extends AppCompatActivity implements UEconfirm.UELis
         if (id == R.id.action_settings) {
             return true;
         }
-
+//
         return super.onOptionsItemSelected(item);
     }
 }

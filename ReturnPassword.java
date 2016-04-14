@@ -1,4 +1,4 @@
-package com.kimbrian.searchrestaurantapplication;
+package com.yingying.searchapp;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

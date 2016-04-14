@@ -1,4 +1,4 @@
-package com.kimbrian.searchrestaurantapplication;
+package com.yingying.searchapp;
 
 import android.app.Activity;
 import android.os.Bundle;

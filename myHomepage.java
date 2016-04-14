@@ -46,8 +46,8 @@ public class myHomepage extends AppCompatActivity {
                         getSupportActionBar().setTitle("My Profile");
                         item.setChecked(true);
 
-                      //  drawerLayout.closeDrawers();
-                     //   drawerLayout.closeDrawer();
+                   //    drawerLayout.closeDrawers();
+
                         break;
                     case R.id.setting_id:
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -55,13 +55,15 @@ public class myHomepage extends AppCompatActivity {
                         fragmentTransaction.commit();
                         getSupportActionBar().setTitle("Setting");
                         item.setChecked(true);
-                    //    drawerLayout.closeDrawers();
+
                         break;
                     case R.id.faq_id:
-                        Intent intent = new Intent(myHomepage.this, FAQ.class);
-                        startActivity(intent);
+                        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.main_container, new FAQ());
+                        fragmentTransaction.commit();
+                        getSupportActionBar().setTitle("FAQ/Help");
                         item.setChecked(true);
-                    //    drawerLayout.closeDrawers();
+
                         break;
 
 
@@ -71,7 +73,8 @@ public class myHomepage extends AppCompatActivity {
                         Intent intent2 = new Intent(myHomepage.this, MainActivity.class);
                         startActivity(intent2);
                         item.setChecked(true);
-                   //     drawerLayout.closeDrawers();
+                        finish();
+
                         break;
 
                 }

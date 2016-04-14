@@ -44,6 +44,15 @@ public class hashmap extends Activity{
 
 
       //  CSVReader csvReader = new CSVReader(new InputStreamReader(getAssets().open(profPath)));
+//InputStreamReader is = new InputStreamReader(getAssets().open("Restaurant.csv"));
+  //      BufferedReader CSVReader = new BufferedReader(is);
+    //    CSVReader.readLine();
+      //  String line;
+        //while((line = CSVReader.readLine())!=null){
+          //  System.out.println(line);
+       // }
+
+        /////
 
         CSVReader csvReader = new CSVReader(new FileReader(profPath));
         String[] row = null;
