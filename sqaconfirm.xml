@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SQAconfirm">
+    tools:context="com.yingying.SearchApp.SQAconfirm">
 
     <!-- TODO: Update blank fragment layout -->
 

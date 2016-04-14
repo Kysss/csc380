@@ -185,8 +185,7 @@
         android:text="Sign Up Now"
         android:id="@+id/signUpNowButton"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="signUpNowClick" />
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
 </ScrollView>
