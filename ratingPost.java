@@ -1,3 +1,4 @@
+package com.yingying.searchapp;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
