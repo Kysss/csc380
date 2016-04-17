@@ -101,7 +101,7 @@ public class sign_In extends AppCompatActivity {
                 Toast.makeText(getBaseContext(),"Login Success",Toast.LENGTH_LONG).show();
                 //Toast.makeText(getBaseContext(),"Please wait...",Toast.LENGTH_LONG).show();
                 finish();
-                Intent i = new Intent(sign_In.this, myHomepage.class);
+                Intent i = new Intent(sign_In.this, MainSearch.class);
                 startActivity(i);
             }else if(loginStatus == false){
                 Toast.makeText(getBaseContext(),"Login Authentication failed. Please try again.",Toast.LENGTH_LONG).show();

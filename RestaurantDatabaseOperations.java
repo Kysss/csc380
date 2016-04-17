@@ -53,7 +53,9 @@ public class RestaurantDatabaseOperations extends SQLiteOpenHelper {
                 Log.d("Res Database operations","One row inserted.");
         }
 
-        public Cursor getInformation(DatabseOperations rdop){
+
+        //Database operations?
+        public Cursor getInformation(RestaurantDatabaseOperations rdop){
                 SQLiteDatabase SQ = rdop.getReadableDatabase();
                 String[] coloumns = {RestaurantTableData.RestaurantTableInfo.RES_NAME,RestaurantTableData.RestaurantTableInfo.RES_ADDRESS,
                         RestaurantTableData.RestaurantTableInfo.RES_CONTACT, RestaurantTableData.RestaurantTableInfo.RES_OPERATION_HOURS,RestaurantTableData.RestaurantTableInfo.RES_AVERAGE_RATING,

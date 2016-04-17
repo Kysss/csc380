@@ -21,11 +21,9 @@ public class AdminProfile extends Profile {
     private HashMap<String, String> hm = new HashMap<>();
   
 
-    public AdminProfile(String fn, String ln, String e,  String u, String p, String sq, String sa) {
-        super(fn, ln, e, u, p, sq, sa);
-        hm.put("YingYing", "Xia");
-        hm.put("KimBrian", "Fadul");
-        hm.put("Matt", "Reeves");
+    public AdminProfile(String username, String p, String fn, String ln, String e, String sq, String sa, String ut) {
+        super(username,p,fn, ln, e, sq, sa,"Admin");
+
     }
 
     public String getAccountType() {

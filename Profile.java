@@ -21,16 +21,22 @@ public abstract class Profile {
     private String password;
     private String securityQuestion;
     private String securityAnswer;
+    private String type;
  public ratingPost[] ratingHistory;
  public int ratingPostCount = 0;
-    public Profile(String fn, String ln, String e, String u, String p, String sq, String sa) {
-        firstName = fn;
-        lastName = ln;
+
+    //TableData.TableInfo.USER_NAME+ " TEXT," + TableData.TableInfo.USER_PASS + " TEXT," + TableData.TableInfo.USER_LAST_NAME+ " TEXT,"
+    //+TableData.TableInfo.USER_FIRST_NAME +" TEXT," + TableData.TableInfo.USER_EMAIL + " TEXT," + TableData.TableInfo.USER_SECURITY_QUESTION+ " TEXT,"
+    //        +TableData.TableInfo.USER_SECURITY_ANSWER+ " TEXT," +TableData.TableInfo.USER_TYPE+ " TEXT);" ;
+    public Profile(String username, String p, String fn, String ln,String e, String sq, String sa, String ut){
+       firstName = fn;
+       lastName = ln;
         email = e;
-        userName = u;
+       userName = username;
         password = p;
         securityQuestion= sq;
         securityAnswer= sa;
+        type = ut;
     }
     //Making profile info
 
@@ -84,6 +90,8 @@ public abstract class Profile {
     public String getPassword() {
         return password;
     }
+
+
 
     public String getSecurityQuestion(){
         return securityQuestion;

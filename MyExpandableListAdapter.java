@@ -94,7 +94,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
             convertView = layoutInflater.inflate(R.layout.child_row, null);
         }
         ImageView childIcon = (ImageView) convertView.findViewById(R.id.child_icon);
-        childIcon.setImageResource(R.mipmap.ic_launcher);
+        childIcon.setImageResource(R.drawable.donut);
 
         final TextView childText = (TextView) convertView.findViewById(R.id.child_text);
         childText.setText(childRow.getText().trim());

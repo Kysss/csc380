@@ -19,15 +19,22 @@ public class Restaurant {
     String rName;
     String rAddress;
     String rContact;
-    Double rAverageRating;
+    String rAverageRating;
+    String rHours;
+    String rTypes;
     
     //  Set ratingList = new HashSet();
-    Set<String> rType = new HashSet();
+  //  Set<String> rType = new HashSet();
     
-    ArrayList ratingList = new ArrayList();
+   // ArrayList ratingList = new ArrayList();
 
-    public Restaurant(String name) {
+    public Restaurant(String name,String address,String contact, String opHours, String averageRating,String types) {
         this.rName = name;
+        this.rAddress=address;
+        this.rContact= contact;
+        this.rAverageRating = averageRating;
+        this.rHours =  opHours;
+        this.rTypes = types;
     }
 
     public void setName(String newName) {
@@ -42,33 +49,24 @@ public class Restaurant {
         this.rContact = contact;
     }
 
-    public void setType(String type) {
-        Set<String> currentType = this.rType;
-        currentType.add(type);
+    public void setType(String type){
+        this.rTypes = type;
+    }
+    public void addType(String type) {
+      //  Set<String> currentType = this.rType;
+      //  currentType.add(type);
+        if(!this.rTypes.contains(type)){
+            String newType = this.rTypes + ", " + type;
+            this.rTypes = newType;
+        }
     }
 
-    public void removeType(String type) {
-        Set<String> currentType = this.rType;
-        currentType.remove(type);
+    public String getType(){
+        return this.rTypes;
     }
 
-    public void addRating(Double rate) {
-       this.ratingList.add(rate);
-       this.rAverageRating = this.getAverageRating();
-       //System.out.println(ratingList);
-     
-    }
-
-   // NEED TO REORGANIZE AND TEST THIS SO THAT THE ARRAY DO NOT HAVE AN EMPTY SPOT WHEN AN ENTRY IS REMOVED.
-    public void removeRating(Double rate) {
-       this.ratingList.remove(rate);
-       this.rAverageRating = this.getAverageRating();
-     //   System.out.println(ratingList);
-      
-    }
-
-    public String getName() {
-        return rName;
+    public String getName(){
+        return this.rName;
     }
 
     public String getAddress() {
@@ -79,24 +77,53 @@ public class Restaurant {
         return rContact;
     }
 
-    public Double getAverageRating() {
-        Double sum = 0.0;
+
+   // public void removeType(String type) {
+        //Set<String> currentType = this.rType;
+       // currentType.remove(type);
+  //      if(!this.rTypes.contains(type)){
+
+   //     }
+   /// }
+
+ //   public void addRating(Double rate) {
+  //     this.ratingList.add(rate);
+ //      this.rAverageRating = this.getAverageRating();
+ //      //System.out.println(ratingList);
+     
+ //   }
+
+   // NEED TO REORGANIZE AND TEST THIS SO THAT THE ARRAY DO NOT HAVE AN EMPTY SPOT WHEN AN ENTRY IS REMOVED.
+   // public void removeRating(Double rate) {
+   //    this.ratingList.remove(rate);
+   //    this.rAverageRating = this.getAverageRating();
+  //   //   System.out.println(ratingList);
+      
+  //  }
+
+
+
+
+
+
+   // public Double getAverageRating() {
+    //    Double sum = 0.0;
         
-        if(ratingList.isEmpty()){
-            return 0.0;
-        }else{
-        for (int i = 0; i < this.ratingList.size(); i++) {
-            Double current = Double.parseDouble(ratingList.get(i).toString());
+    //    if(ratingList.isEmpty()){
+   //         return 0.0;
+   //     }else{
+   //     for (int i = 0; i < this.ratingList.size(); i++) {
+   //         Double current = Double.parseDouble(ratingList.get(i).toString());
             
-            sum = sum + current;
-            rAverageRating = sum/ratingList.size();
+   //         sum = sum + current;
+   //         rAverageRating = sum/ratingList.size();
             
-        }
+  //      }
        // System.out.println("Average rating" + this.rAverageRating);
-        return rAverageRating;
-    }
-    }
-    public Set<String> getType() {
-        return rType;
-    }
+   //     return rAverageRating;
+  //  }
+   // }
+  //  public Set<String> getType() {
+  //      return rType;
+  //  }
 }
