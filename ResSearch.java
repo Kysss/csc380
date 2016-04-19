@@ -1,3 +1,4 @@
+package com.yingying.searchapp;
 
 import java.util.HashMap;
 import java.util.Scanner;
@@ -51,17 +52,17 @@ public class ResSearch {
          //then pass searchResult to DisplayResRank according to user preference again.
     }
     
-    public HashMap<String, Restaurant> searchByType(String type){
-       searchResult = new HashMap(); //create an empty hashmap for storing searched results.
-        for (Restaurant r : this.resDatabase.values()) {
-            if(r.rType.contains(type)){
-                searchResult.put(r.rName, r);
-            }
-        }
+   // public HashMap<String, Restaurant> searchByType(String type){
+    //   searchResult = new HashMap(); //create an empty hashmap for storing searched results.
+     //   for (Restaurant r : this.resDatabase.values()) {
+      //      if(r.rType.contains(type)){
+       //         searchResult.put(r.rName, r);
+        //    }
+        //}
      //   for (Restaurant s : searchResult.values()) {
      //   }
-       return searchResult;
+     //  return searchResult;
        // return save;  //then pass this to DisplayResRank according to user preference again.
-    }
+   // }
    
 }
