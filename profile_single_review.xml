@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <ImageView
+        android:layout_width="69dp"
+        android:layout_height="93dp"
+        android:id="@+id/reviewHistoryIcon"
+        android:src="@drawable/reviews_icon"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_below="@+id/reviewHistoryPostDate"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/reviewHistoryPostDate"
+        android:textSize="50px"
+        android:paddingTop="5dp"
+        android:layout_toEndOf="@+id/reviewHistoryIcon"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/reviewResName"
+        android:layout_below="@+id/reviewHistoryPostDate"
+        android:textSize="50px"
+        android:paddingTop="5dp"
+        android:layout_toRightOf="@+id/reviewHistoryIcon"
+        android:layout_toEndOf="@+id/reviewHistoryIcon" />
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?android:attr/ratingBarStyleIndicator"
+        android:id="@+id/reviewHistoryRatingBar"
+        android:paddingLeft="15dp"
+        android:layout_below="@+id/reviewResName"
+        android:layout_toRightOf="@+id/reviewHistoryIcon"
+        android:layout_toEndOf="@+id/reviewHistoryIcon" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Review"
+        android:id="@+id/reviewPostHistoryContent"
+        android:layout_below="@+id/reviewHistoryIcon"
+        android:layout_alignRight="@+id/reviewResName"
+        android:layout_alignEnd="@+id/reviewResName"
+        android:textSize="50px" />
+
+
+</RelativeLayout>
