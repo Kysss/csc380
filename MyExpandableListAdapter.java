@@ -1,6 +1,8 @@
 package com.yingying.searchapp;
 
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
     private Context context;
     private ArrayList<ParentRow> parentRowList;
     private ArrayList<ParentRow> originalList;
+
 
     public MyExpandableListAdapter(Context context, ArrayList<ParentRow> originalList) {
         this.context = context;
@@ -86,6 +89,8 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+
+
         ChildRow childRow = (ChildRow) getChild(groupPosition, childPosition);
 
         if (convertView == null) {
@@ -94,19 +99,24 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
             convertView = layoutInflater.inflate(R.layout.child_row, null);
         }
         ImageView childIcon = (ImageView) convertView.findViewById(R.id.child_icon);
-        childIcon.setImageResource(R.drawable.donut);
+        childIcon.setImageResource(R.mipmap.ic_launcher);
 
         final TextView childText = (TextView) convertView.findViewById(R.id.child_text);
         childText.setText(childRow.getText().trim());
 
         final View finalConvertView = convertView;
-        childText.setOnClickListener(new View.OnClickListener() {
+       childText.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Toast.makeText(finalConvertView.getContext()
-                        , childText.getText()
-                        , Toast.LENGTH_SHORT).show();
-            }
+           public void onClick(View v) {
+                Intent i = new Intent(context, RestaurantPage.class);
+                i.putExtra("RestaurantName", childText.getText());
+                i.putExtra("accountUsername",MainSearch.carryUsername);
+                i.putExtra("accountEmail",MainSearch.carryUserEmail);
+
+                context.startActivity(i);
+
+                Toast.makeText(context,childText.getText(),Toast.LENGTH_LONG).show();
+           }
         });
         return convertView;
     }
@@ -143,5 +153,24 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
             notifyDataSetChanged();
         }
     }
+
+
+    public Restaurant getRestaurantByName(String res) {
+        Restaurant r = null;
+        RestaurantDatabaseOperations ResDOP = new RestaurantDatabaseOperations(context);
+        Cursor cr = ResDOP.getInformation(ResDOP);
+        cr.moveToFirst();
+        while (!cr.isAfterLast()) {
+            if (cr.getString(0) != null && cr.getString(0).equalsIgnoreCase(res)) {
+                r = new Restaurant(cr.getString(0),cr.getString(1),cr.getString(2),cr.getString(3),cr.getString(4),cr.getString(5));
+
+            }else{
+                r = null;
+            }
+            cr.moveToNext();
+        }
+        return r;
+    }
+
 
 }

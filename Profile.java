@@ -22,8 +22,8 @@ public abstract class Profile {
     private String securityQuestion;
     private String securityAnswer;
     private String type;
- public ratingPost[] ratingHistory;
- public int ratingPostCount = 0;
+ //public ratingPost[] ratingHistory;
+ //public int ratingPostCount = 0;
 
     //TableData.TableInfo.USER_NAME+ " TEXT," + TableData.TableInfo.USER_PASS + " TEXT," + TableData.TableInfo.USER_LAST_NAME+ " TEXT,"
     //+TableData.TableInfo.USER_FIRST_NAME +" TEXT," + TableData.TableInfo.USER_EMAIL + " TEXT," + TableData.TableInfo.USER_SECURITY_QUESTION+ " TEXT,"
@@ -101,15 +101,15 @@ public abstract class Profile {
         return securityAnswer;
     }
     
-    public void addRatingPost(String title, Double rating, String content){
-       ratingPost rp  = new ratingPost(title,rating,content);
-       this.ratingHistory[ratingPostCount] = rp;
-       ratingPostCount ++;
-    }
+  //  public void addRatingPost(String title, Double rating, String content){
+   //    ratingPost rp  = new ratingPost(title,rating,content);
+  //     this.ratingHistory[ratingPostCount] = rp;
+  //     ratingPostCount ++;
+  //  }
     
-    public ratingPost[] inspectRatingHistory(){
-        return this.ratingHistory;
-    }
+   // public ratingPost[] inspectRatingHistory(){
+    //    return this.ratingHistory;
+   // }
             
 
 }

@@ -7,6 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity {
 
     Context CTX = this;
@@ -19,11 +23,18 @@ public class MainActivity extends AppCompatActivity {
 
         //restaurant database initiate
         RestaurantDatabaseOperations RDB = new RestaurantDatabaseOperations(CTX);
-        RDB.putResInformation(RDB, "Domino's", "60 SW 9th St, Oswego, NY 13126","(315) 343-7250","10:30AM–12AM","3.2","American");
-        RDB.putResInformation(RDB, "Kiyomi", "311 W Seneca St, Oswego, NY 13126", "(315) 343-8889", "11AM–10PM", "3.3", "Japanese,Chinese");
+      //  RDB.putResInformation(RDB, "Domino's", "60 SW 9th St, Oswego, NY 13126","(315) 343-7250","10:30AM–12AM","3.2","American");
+       // RDB.putResInformation(RDB, "Kiyomi", "311 W Seneca St, Oswego, NY 13126", "(315) 343-8889", "11AM–10PM", "3.3", "Japanese,Chinese");
 
+        //rating databse initiate
         RatingDatabaseOperations RateDB = new RatingDatabaseOperations(CTX);
-        RateDB.putInformation(RateDB,"Kiyomi","yxia","yxia@oswego,edu","4.5","Good service.");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        String reviewDate = dateFormat.format(date);
+
+   //     RateDB.putInformation(RateDB,"Kiyomi",reviewDate,"yxia","yxia@oswego,edu","4.5","Good service.");
+
+
 
         forget.setOnClickListener(new View.OnClickListener() {
             @Override

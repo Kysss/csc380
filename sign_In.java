@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Parcelable;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,9 +27,12 @@ public class sign_In extends AppCompatActivity {
     private GoogleApiClient client;
   //  private hashmap hm;
   //  private HashMap<String, Profile> userData;
+    Profile account;
   Context CTX = this;
     EditText u,p;
     String username,password;
+    String carryVariableName;
+    String carryVariableEmail;
     boolean loginStatus;
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -56,19 +60,9 @@ public class sign_In extends AppCompatActivity {
             }
         });
 
-
-
-
-
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
-
-
-
-
-
-
 
     }
 
@@ -90,8 +84,19 @@ public class sign_In extends AppCompatActivity {
 
             while(!CR.isAfterLast()){
                 if(username.equals(CR.getString(0))&&password.equals(CR.getString(1))){
-                    loginStatus = true;
-                    break;
+                    carryVariableName = CR.getString(0);
+                    carryVariableEmail=  CR.getString(4);
+
+          //          String accountType = CR.getString(7);
+//                    if(accountType!=null && accountType.equalsIgnoreCase("Admin")){
+                   //     account = new AdminProfile(CR.getString(0),CR.getString(1),CR.getString(2),CR.getString(3),
+             //                   CR.getString(4),CR.getString(5),CR.getString(6),"Admin");
+             //       }else{
+            //           account = new UserProfile(CR.getString(0),CR.getString(1),CR.getString(2),CR.getString(3),
+             //                   CR.getString(4),CR.getString(5),CR.getString(6),"User");
+            //        }
+                 loginStatus = true;
+                 break;
                 }else{
                     CR.moveToNext();
                 }
@@ -102,6 +107,8 @@ public class sign_In extends AppCompatActivity {
                 //Toast.makeText(getBaseContext(),"Please wait...",Toast.LENGTH_LONG).show();
                 finish();
                 Intent i = new Intent(sign_In.this, MainSearch.class);
+                i.putExtra("accountUsername", carryVariableName);
+                i.putExtra("accountEmail",carryVariableEmail);
                 startActivity(i);
             }else if(loginStatus == false){
                 Toast.makeText(getBaseContext(),"Login Authentication failed. Please try again.",Toast.LENGTH_LONG).show();

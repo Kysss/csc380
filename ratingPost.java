@@ -15,21 +15,45 @@ import java.util.Date;
  */
 public class ratingPost {
 
-    String title;
-    Double rating;
-    String content;
+    String resName;
     String postdate;
+    String postUserName;
+    String rating;
+    String content;
+    String postEmail;
 
-    public ratingPost(String title, Double Rating, String content) {
-        this.title = title;
+
+    public ratingPost(String resName, String postDate, String username,String useremail, String Rating, String content) {
+        this.resName = resName;
+        this.postdate = postDate;
+        this.postUserName=username;
+        this.postEmail = useremail;
         this.rating = Rating;
         this.content = content;
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = new Date();
-        
-       this.postdate = dateFormat.format(date);
+
        //System.out.println(this.postdate);
         //save this specific rating somewhere saveReview
     }
+
+
+    public String getResName(){
+        return this.resName;
+    }
+    public String getPostDate(){
+        return this.postdate;
+    }
+    public String getPostUserEmail(){
+        return this.postEmail;
+    }
+    public String getPostUserName(){
+        return this.postUserName;
+    }
+    public String getRating(){
+        return this.rating;
+    }
+    public String getReview(){
+        return this.content;
+    }
+
 }

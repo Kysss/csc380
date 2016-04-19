@@ -32,8 +32,9 @@ public class Restaurant {
         this.rName = name;
         this.rAddress=address;
         this.rContact= contact;
-        this.rAverageRating = averageRating;
         this.rHours =  opHours;
+        this.rAverageRating = averageRating;
+
         this.rTypes = types;
     }
 
@@ -47,6 +48,15 @@ public class Restaurant {
 
     public void setContact(String contact) {
         this.rContact = contact;
+    }
+    public String getAverage(){
+        return this.rAverageRating;
+    }
+    public void setAverage(String average){
+        this.rAverageRating = average;
+    }
+    public String getHours(){
+        return this.rHours;
     }
 
     public void setType(String type){

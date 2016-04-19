@@ -49,10 +49,10 @@ public class RestaurantDatabaseOperations extends SQLiteOpenHelper {
                 cv.put(RestaurantTableData.RestaurantTableInfo.RES_TYPES, resTypes);
 
 
-                long k = SQ.insert(RestaurantTableData.RestaurantTableInfo.RES_TABLE_NAME,null,cv);
+                long k = SQ.insert(RestaurantTableData.RestaurantTableInfo.RES_TABLE_NAME, null, cv);
                 Log.d("Res Database operations","One row inserted.");
-        }
 
+        }
 
         //Database operations?
         public Cursor getInformation(RestaurantDatabaseOperations rdop){
@@ -60,9 +60,28 @@ public class RestaurantDatabaseOperations extends SQLiteOpenHelper {
                 String[] coloumns = {RestaurantTableData.RestaurantTableInfo.RES_NAME,RestaurantTableData.RestaurantTableInfo.RES_ADDRESS,
                         RestaurantTableData.RestaurantTableInfo.RES_CONTACT, RestaurantTableData.RestaurantTableInfo.RES_OPERATION_HOURS,RestaurantTableData.RestaurantTableInfo.RES_AVERAGE_RATING,
                         RestaurantTableData.RestaurantTableInfo.RES_TYPES};
-                Cursor SR = SQ.query(RestaurantTableData.RestaurantTableInfo.RES_TABLE_NAME,coloumns,null,null,null,null,null);
+                Cursor SR = SQ.query(RestaurantTableData.RestaurantTableInfo.RES_TABLE_NAME, coloumns, null, null, null, null, null);
                 return SR;
         }
+
+        public void updateAverageRating(RestaurantDatabaseOperations rdop, Restaurant r,String newAverage){
+                SQLiteDatabase SQ = rdop.getWritableDatabase();
+                ContentValues cv = new ContentValues();
+                r.setAverage(newAverage);
+                cv.put(RestaurantTableData.RestaurantTableInfo.RES_NAME, r.getName());
+                cv.put(RestaurantTableData.RestaurantTableInfo.RES_ADDRESS,r.getAddress());
+                cv.put(RestaurantTableData.RestaurantTableInfo.RES_CONTACT,r.getContact());
+                cv.put(RestaurantTableData.RestaurantTableInfo.RES_OPERATION_HOURS,r.getHours());
+           //   cv.put(RestaurantTableData.RestaurantTableInfo.RES_AVERAGE_RATING,r.getAverage());
+                cv.put(RestaurantTableData.RestaurantTableInfo.RES_TYPES, r.getType());
+                SQ.update(RestaurantTableData.RestaurantTableInfo.RES_TABLE_NAME, cv, RestaurantTableData.RestaurantTableInfo.RES_AVERAGE_RATING
+                        + "= ?", new String[]{String.valueOf(newAverage)});
+                SQ.close();
+        }
+
+
+
+
 
 
 }

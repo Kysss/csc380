@@ -2,7 +2,9 @@ package com.yingying.searchapp;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,30 +14,49 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.SearchView;
 
+
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainSearch extends AppCompatActivity
-        implements SearchView.OnQueryTextListener, SearchView.OnCloseListener{
+        implements SearchView.OnQueryTextListener, SearchView.OnCloseListener {
+
+    static String carryUsername;
+    static String carryUserEmail;
     Context CTX = this;
     private SearchManager searchManager;
-    private android.widget.SearchView searchView;
+    private SearchView searchView;
     private MyExpandableListAdapter listAdapter;
     private ExpandableListView myList;
     private ArrayList<ParentRow> parentList = new ArrayList<ParentRow>();
     private ArrayList<ParentRow> showTheseParentList = new ArrayList<ParentRow>();
     private MenuItem searchItem;
-    public HashMap<String,Restaurant> resHM= new HashMap<String,Restaurant>();
-    public HashMap<String, Profile> userHM = new HashMap<String,Profile>();
+    public HashMap<String, Restaurant> resHM = new HashMap<String, Restaurant>();
+    public HashMap<String, Profile> userHM = new HashMap<String, Profile>();
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_main);
+
+        Intent intent = getIntent();
+        carryUsername = intent.getStringExtra("accountUsername");
+        carryUserEmail = intent.getStringExtra("accountEmail");
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -55,6 +76,9 @@ public class MainSearch extends AppCompatActivity
 
         displayList();
         expandAll();
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     private void loadData() {
@@ -70,17 +94,17 @@ public class MainSearch extends AppCompatActivity
         //res rating = 4
         //res type =5
 
-        while(!CR.isAfterLast()){
-            Restaurant newRes = new Restaurant(CR.getString(0),CR.getString(1),CR.getString(2),CR.getString(3),CR.getString(4),CR.getString(5));
+        while (!CR.isAfterLast()) {
+            Restaurant newRes = new Restaurant(CR.getString(0), CR.getString(1), CR.getString(2), CR.getString(3), CR.getString(4), CR.getString(5));
             resHM.put(CR.getString(0), newRes);
 
             CR.moveToNext();
         }
 
-        ArrayList<ChildRow> childRows= new ArrayList<ChildRow>();
+        ArrayList<ChildRow> childRows = new ArrayList<ChildRow>();
         ParentRow parentRow = null;
 
-        for (String resName: resHM.keySet()){
+        for (String resName : resHM.keySet()) {
             childRows.add(new ChildRow(R.mipmap.ic_launcher, resName));
         }
 
@@ -90,7 +114,7 @@ public class MainSearch extends AppCompatActivity
 
 
         DatabseOperations UDOP = new DatabseOperations(CTX);
-        Cursor cr= UDOP.getInformation(UDOP);
+        Cursor cr = UDOP.getInformation(UDOP);
         cr.moveToFirst();
 
         //res name = 0,
@@ -100,13 +124,15 @@ public class MainSearch extends AppCompatActivity
         //res rating = 4
         //res type =5
 
-        while(!cr.isAfterLast()){
-            if(cr.getString(7)!=null && cr.getString(7).equalsIgnoreCase("Admin")) {
-                AdminProfile newAccount = new AdminProfile(cr.getString(0), cr.getString(1), cr.getString(2), cr.getString(3), cr.getString(4), cr.getString(5),cr.getString(6),"Admin");
+        while (!cr.isAfterLast()) {
+            if (cr.getString(7) != null && cr.getString(7).equalsIgnoreCase("Admin")) {
+                AdminProfile newAccount = new AdminProfile(cr.getString(0), cr.getString(1), cr.getString(2),
+                        cr.getString(3), cr.getString(4), cr.getString(5), cr.getString(6), "Admin");
                 userHM.put(cr.getString(0), newAccount);
 
-            }else{
-                UserProfile newAccount = new UserProfile(cr.getString(0), cr.getString(1), cr.getString(2), cr.getString(3), cr.getString(4), cr.getString(5),cr.getString(6),"User");
+            } else {
+                UserProfile newAccount = new UserProfile(cr.getString(0), cr.getString(1), cr.getString(2),
+                        cr.getString(3), cr.getString(4), cr.getString(5), cr.getString(6), "User");
                 userHM.put(cr.getString(0), newAccount);
 
             }
@@ -115,7 +141,7 @@ public class MainSearch extends AppCompatActivity
 
 
         childRows = new ArrayList<ChildRow>();
-        for (String userName: userHM.keySet()){
+        for (String userName : userHM.keySet()) {
             childRows.add(new ChildRow(R.mipmap.ic_launcher, userName));
         }
 
@@ -123,21 +149,37 @@ public class MainSearch extends AppCompatActivity
         parentList.add(parentRow);
     }
 
-    public void expandAll(){
+    public void expandAll() {
         int count = listAdapter.getGroupCount();
-        for(int i = 0; i< count; i++){
+        for (int i = 0; i < count; i++) {
             myList.expandGroup(i);
         }
     }
 
     public void displayList() {
-            loadData();
+        loadData();
 
         myList = (ExpandableListView) findViewById(R.id.expandableListView_search);
         listAdapter = new MyExpandableListAdapter(MainSearch.this, parentList);
 
+
         myList.setAdapter(listAdapter);
+
+        myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent i = new Intent(MainSearch.this,RestaurantPage.class);
+                i.putExtra("accountUsername",carryUsername);
+                i.putExtra("accountEmail", carryUserEmail);
+                i.putExtra("RestaurantName",parentList.get(position).getChildList().get(position).getText());
+                MainSearch.this.startActivity(i);
+            }
+        });
+
+
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -188,5 +230,45 @@ public class MainSearch extends AppCompatActivity
         listAdapter.filterData(newText);
         expandAll();
         return false;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "MainSearch Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.yingying.searchapp/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "MainSearch Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.yingying.searchapp/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
     }
 }
