@@ -123,8 +123,10 @@ public class RestaurantPage extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent i = new Intent(RestaurantPage.this,myHomepage.class);
+                i.putExtra("accountUsername",carryUsername);
+                i.putExtra("accountEmail", carryUserEmail);
+                RestaurantPage.this.startActivity(i);
             }
         });
 

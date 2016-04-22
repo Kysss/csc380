@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -99,10 +100,17 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
             convertView = layoutInflater.inflate(R.layout.child_row, null);
         }
         ImageView childIcon = (ImageView) convertView.findViewById(R.id.child_icon);
-        childIcon.setImageResource(R.mipmap.ic_launcher);
+      //  childIcon.setImageResource(R.mipmap.ic_launcher);
+        childIcon.setImageResource(R.drawable.dining_icon);
 
         final TextView childText = (TextView) convertView.findViewById(R.id.child_text);
         childText.setText(childRow.getText().trim());
+
+        final RatingBar childRating = (RatingBar)convertView.findViewById(R.id.child_rating);
+        childRating.setRating(Float.parseFloat(childRow.getRating()));
+
+        final TextView childType = (TextView)convertView.findViewById(R.id.child_type);
+        childType.setText(childRow.getType().trim());
 
         final View finalConvertView = convertView;
        childText.setOnClickListener(new View.OnClickListener() {

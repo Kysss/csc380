@@ -18,6 +18,8 @@ public class myHomepage extends AppCompatActivity {
     ActionBarDrawerToggle actionBarDrawerToggle;
     android.support.v4.app.FragmentTransaction fragmentTransaction;
 
+    static String carryUsername;
+    static String carryUserEmail;
 
     NavigationView navigationView;
     @Override
@@ -29,26 +31,53 @@ public class myHomepage extends AppCompatActivity {
     //    drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         //actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar, "drawer open","drawer close");
 //         drawerLayout.setDrawerListener(actionBarDrawerToggle);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            carryUsername = extras.getString("accountUsername");
+            carryUserEmail = extras.getString("accountEmail");
+
+        }
         fragmentTransaction= getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.main_container,new SearchFragment());
+        fragmentTransaction.add(R.id.main_container,new AboutFragment());
         fragmentTransaction.commit();
-        getSupportActionBar().setTitle("Search");
+        getSupportActionBar().setTitle("About");
         navigationView = (NavigationView)findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.profile_id:
+
+                    case R.id.about_id:
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.main_container, new MyProfile());
+                        fragmentTransaction.replace(R.id.main_container, new AboutFragment());
                         fragmentTransaction.commit();
-                        getSupportActionBar().setTitle("My Profile");
+                        getSupportActionBar().setTitle("About");
                         item.setChecked(true);
 
-                   //    drawerLayout.closeDrawers();
-
                         break;
+
+
+                    case R.id.search_id:
+                        item.setChecked(true);
+                        Intent intent3 = new Intent(myHomepage.this, MainSearch.class);
+                        intent3.putExtra("accountUsername",carryUsername);
+                        intent3.putExtra("accountEmail", carryUserEmail);
+                        startActivity(intent3);
+                        item.setChecked(true);
+                        break;
+                    case R.id.profile_id:
+                        item.setChecked(true);
+                        Intent intent = new Intent(myHomepage.this, ProfilePage.class);
+                        intent.putExtra("accountUsername",carryUsername);
+                        intent.putExtra("accountEmail", carryUserEmail);
+                        intent.putExtra("clickedUsername",carryUsername);
+
+                        startActivity(intent);
+                        item.setChecked(true);
+                        break;
+
                     case R.id.setting_id:
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.main_container, new Setting());

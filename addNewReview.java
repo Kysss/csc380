@@ -52,8 +52,10 @@ public class addNewReview extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent i = new Intent(addNewReview.this,myHomepage.class);
+                i.putExtra("accountUsername",carryUsername);
+                i.putExtra("accountEmail", carryUserEmail);
+                addNewReview.this.startActivity(i);
             }
         });
 
@@ -71,15 +73,15 @@ public class addNewReview extends AppCompatActivity {
                         comment.getText().toString());
 
                 RatingDatabaseOperations RatingDB = new RatingDatabaseOperations(CTX);
-                RatingDB.putInformation(RatingDB, rp.getResName(), rp.getPostDate(), carryUsername, rp.getPostUserEmail(),
+                RatingDB.putInformation(RatingDB, rp.getResName(), rp.getPostDate(), carryUsername, carryUserEmail,
                         rp.getRating(), rp.getReview());
                 Toast.makeText(getBaseContext(), "Review posted successfully", Toast.LENGTH_LONG).show();
 
                 Restaurant thisRes = getRestaurantByName(carryResName);
                 String newAverage = calculateAverageRating(carryResName);
 
-                updateAverageRating(new RestaurantDatabaseOperations(CTX),thisRes,newAverage);
-             //   finish();
+//                updateAverageRating(new RestaurantDatabaseOperations(CTX),thisRes,newAverage);
+                finish();
                 Intent i = new Intent(addNewReview.this, RestaurantPage.class);
                 i.putExtra("accountUsername", carryUsername);
                 i.putExtra("accountEmail", carryUserEmail);
@@ -121,20 +123,20 @@ public class addNewReview extends AppCompatActivity {
     }
 
 
-    public void updateAverageRating(RestaurantDatabaseOperations rdop, Restaurant r, String newAverage) {
-        SQLiteDatabase SQ = rdop.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        //r.setAverage(newAverage);
-        cv.put(RestaurantTableData.RestaurantTableInfo.RES_NAME, r.getName());
-        cv.put(RestaurantTableData.RestaurantTableInfo.RES_ADDRESS, r.getAddress());
-        cv.put(RestaurantTableData.RestaurantTableInfo.RES_CONTACT, r.getContact());
-        cv.put(RestaurantTableData.RestaurantTableInfo.RES_OPERATION_HOURS, r.getHours());
+  //  public void updateAverageRating(RestaurantDatabaseOperations rdop, Restaurant r, String newAverage) {
+  //      SQLiteDatabase SQ = rdop.getWritableDatabase();
+   //     ContentValues cv = new ContentValues();
+    //    //r.setAverage(newAverage);
+     //   cv.put(RestaurantTableData.RestaurantTableInfo.RES_NAME, r.getName());
+       // cv.put(RestaurantTableData.RestaurantTableInfo.RES_ADDRESS, r.getAddress());
+       // cv.put(RestaurantTableData.RestaurantTableInfo.RES_CONTACT, r.getContact());
+       // cv.put(RestaurantTableData.RestaurantTableInfo.RES_OPERATION_HOURS, r.getHours());
         //   cv.put(RestaurantTableData.RestaurantTableInfo.RES_AVERAGE_RATING,r.getAverage());
-        cv.put(RestaurantTableData.RestaurantTableInfo.RES_TYPES, r.getType());
-        SQ.update(RestaurantTableData.RestaurantTableInfo.RES_TABLE_NAME, cv, RestaurantTableData.RestaurantTableInfo.RES_AVERAGE_RATING
-                + "= ?", new String[]{String.valueOf(newAverage)});
-        SQ.close();
-    }
+       // cv.put(RestaurantTableData.RestaurantTableInfo.RES_TYPES, r.getType());
+       // SQ.update(RestaurantTableData.RestaurantTableInfo.RES_TABLE_NAME, cv, RestaurantTableData.RestaurantTableInfo.RES_AVERAGE_RATING
+        //        + "= ?", new String[]{String.valueOf(newAverage)});
+        //SQ.close();
+   // }
 
 
     public Restaurant getRestaurantByName(String res) {

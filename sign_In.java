@@ -31,8 +31,8 @@ public class sign_In extends AppCompatActivity {
   Context CTX = this;
     EditText u,p;
     String username,password;
-    String carryVariableName;
-    String carryVariableEmail;
+    static String carryUsername;
+    static String carryUserEmail;
     boolean loginStatus;
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -84,17 +84,9 @@ public class sign_In extends AppCompatActivity {
 
             while(!CR.isAfterLast()){
                 if(username.equals(CR.getString(0))&&password.equals(CR.getString(1))){
-                    carryVariableName = CR.getString(0);
-                    carryVariableEmail=  CR.getString(4);
+                    carryUsername = CR.getString(0);
+                    carryUserEmail=  CR.getString(4);
 
-          //          String accountType = CR.getString(7);
-//                    if(accountType!=null && accountType.equalsIgnoreCase("Admin")){
-                   //     account = new AdminProfile(CR.getString(0),CR.getString(1),CR.getString(2),CR.getString(3),
-             //                   CR.getString(4),CR.getString(5),CR.getString(6),"Admin");
-             //       }else{
-            //           account = new UserProfile(CR.getString(0),CR.getString(1),CR.getString(2),CR.getString(3),
-             //                   CR.getString(4),CR.getString(5),CR.getString(6),"User");
-            //        }
                  loginStatus = true;
                  break;
                 }else{
@@ -107,8 +99,8 @@ public class sign_In extends AppCompatActivity {
                 //Toast.makeText(getBaseContext(),"Please wait...",Toast.LENGTH_LONG).show();
                 finish();
                 Intent i = new Intent(sign_In.this, MainSearch.class);
-                i.putExtra("accountUsername", carryVariableName);
-                i.putExtra("accountEmail",carryVariableEmail);
+                i.putExtra("accountUsername", carryUsername);
+                i.putExtra("accountEmail",carryUserEmail);
                 startActivity(i);
             }else if(loginStatus == false){
                 Toast.makeText(getBaseContext(),"Login Authentication failed. Please try again.",Toast.LENGTH_LONG).show();

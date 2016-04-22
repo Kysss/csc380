@@ -4,6 +4,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.hardware.display.DisplayManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +16,8 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ExpandableListView;
 import android.widget.SearchView;
 
@@ -28,7 +31,7 @@ import java.util.HashMap;
 
 public class MainSearch extends AppCompatActivity
         implements SearchView.OnQueryTextListener, SearchView.OnCloseListener {
-
+    Restaurant[] rankedRestaurant = null;
     static String carryUsername;
     static String carryUserEmail;
     Context CTX = this;
@@ -36,11 +39,17 @@ public class MainSearch extends AppCompatActivity
     private SearchView searchView;
     private MyExpandableListAdapter listAdapter;
     private ExpandableListView myList;
+
     private ArrayList<ParentRow> parentList = new ArrayList<ParentRow>();
     private ArrayList<ParentRow> showTheseParentList = new ArrayList<ParentRow>();
+
+    private ArrayList<UserParentRow> parentList2 = new ArrayList<UserParentRow>();
+    private ArrayList<UserParentRow> showTheseParentList2 = new ArrayList<UserParentRow>();
+
     private MenuItem searchItem;
     public HashMap<String, Restaurant> resHM = new HashMap<String, Restaurant>();
     public HashMap<String, Profile> userHM = new HashMap<String, Profile>();
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -64,24 +73,58 @@ public class MainSearch extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+             //   Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+            //            .setAction("Action", null).show();
+                Intent i = new Intent(MainSearch.this,myHomepage.class);
+                i.putExtra("accountUsername",carryUsername);
+                i.putExtra("accountEmail", carryUserEmail);
+                MainSearch.this.startActivity(i);
             }
         });
+
+
+
 
         searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         parentList = new ArrayList<ParentRow>();
         showTheseParentList = new ArrayList<ParentRow>();
 
-        displayList();
+        defaultdisplayList();
         expandAll();
+
+        final CheckBox checkBox = (CheckBox)findViewById(R.id.checkBox);
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (checkBox.isChecked()) {
+                    checkBox.setChecked(true);
+                    searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+                    parentList = new ArrayList<ParentRow>();
+                    showTheseParentList = new ArrayList<ParentRow>();
+
+                    displayList();
+                    expandAll();
+
+                }else if(!checkBox.isChecked()){
+                    checkBox.setChecked(false);
+                    searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+                    parentList = new ArrayList<ParentRow>();
+                    showTheseParentList = new ArrayList<ParentRow>();
+
+                    defaultdisplayList();
+                    expandAll();
+                }
+            }
+        });
+
+
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    private void loadData() {
+    private void defaultloadData() {
 
         RestaurantDatabaseOperations RDOP = new RestaurantDatabaseOperations(CTX);
         Cursor CR = RDOP.getInformation(RDOP);
@@ -101,11 +144,19 @@ public class MainSearch extends AppCompatActivity
             CR.moveToNext();
         }
 
+        DisplayResRank displayResRank = new DisplayResRank(resHM);
+        rankedRestaurant = displayResRank.displayHighToLowRanking(resHM);
+
+
         ArrayList<ChildRow> childRows = new ArrayList<ChildRow>();
         ParentRow parentRow = null;
 
-        for (String resName : resHM.keySet()) {
-            childRows.add(new ChildRow(R.mipmap.ic_launcher, resName));
+
+
+        for(int i=0; i< rankedRestaurant.length; i ++){
+            Restaurant r = rankedRestaurant[i];
+            childRows.add(new ChildRow(R.drawable.dining_icon,r.getName(),r.getAverage(),r.getType()));
+
         }
 
         parentRow = new ParentRow("Restaurants", childRows);
@@ -113,7 +164,7 @@ public class MainSearch extends AppCompatActivity
         parentList.add(parentRow);
 
 
-        DatabseOperations UDOP = new DatabseOperations(CTX);
+    /*    DatabseOperations UDOP = new DatabseOperations(CTX);
         Cursor cr = UDOP.getInformation(UDOP);
         cr.moveToFirst();
 
@@ -139,14 +190,58 @@ public class MainSearch extends AppCompatActivity
             cr.moveToNext();
         }
 
+   //     UserParentRow parentRow2 = null;
+    //    ArrayList<ProfileChildRow> userchildRows = new ArrayList<ProfileChildRow>();
+    //    userchildRows = new ArrayList<ProfileChildRow>();
+    //    for (String userName : userHM.keySet()) {
+    //        userchildRows.add(new ProfileChildRow(R.mipmap.ic_launcher, userName));
+    //    }
 
-        childRows = new ArrayList<ChildRow>();
-        for (String userName : userHM.keySet()) {
-            childRows.add(new ChildRow(R.mipmap.ic_launcher, userName));
+   //     parentRow2 = new UserParentRow("User Profiles", userchildRows);
+    //    parentList2.add(parentRow2);
+*/
+    }
+
+    //from low to high
+    private void loadData() {
+
+        RestaurantDatabaseOperations RDOP = new RestaurantDatabaseOperations(CTX);
+        Cursor CR = RDOP.getInformation(RDOP);
+        CR.moveToFirst();
+
+        //res name = 0,
+        //res address = 1
+        //res contact = 2
+        //res hours = 3
+        //res rating = 4
+        //res type =5
+
+        while (!CR.isAfterLast()) {
+            Restaurant newRes = new Restaurant(CR.getString(0), CR.getString(1), CR.getString(2), CR.getString(3), CR.getString(4), CR.getString(5));
+            resHM.put(CR.getString(0), newRes);
+
+            CR.moveToNext();
         }
 
-        parentRow = new ParentRow("User Profiles", childRows);
+        DisplayResRank displayResRank = new DisplayResRank(resHM);
+        rankedRestaurant = displayResRank.displayLowToHighRanking(resHM);
+
+
+        ArrayList<ChildRow> childRows = new ArrayList<ChildRow>();
+        ParentRow parentRow = null;
+
+
+
+        for(int i=0; i< rankedRestaurant.length; i ++){
+            Restaurant r = rankedRestaurant[i];
+            childRows.add(new ChildRow(R.drawable.dining_icon,r.getName(),r.getAverage(),r.getType()));
+
+        }
+
+        parentRow = new ParentRow("Restaurants", childRows);
+
         parentList.add(parentRow);
+
     }
 
     public void expandAll() {
@@ -156,6 +251,29 @@ public class MainSearch extends AppCompatActivity
         }
     }
 
+    public void defaultdisplayList() {
+        defaultloadData();
+
+        myList = (ExpandableListView) findViewById(R.id.expandableListView_search);
+        listAdapter = new MyExpandableListAdapter(MainSearch.this, parentList);
+
+
+        myList.setAdapter(listAdapter);
+
+        myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent i = new Intent(MainSearch.this,RestaurantPage.class);
+                i.putExtra("accountUsername",carryUsername);
+                i.putExtra("accountEmail", carryUserEmail);
+                i.putExtra("RestaurantName",parentList.get(position).getChildList().get(position).getText());
+                MainSearch.this.startActivity(i);
+            }
+        });
+
+
+    }
     public void displayList() {
         loadData();
 
@@ -179,6 +297,7 @@ public class MainSearch extends AppCompatActivity
 
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

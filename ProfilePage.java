@@ -1,6 +1,7 @@
 package com.yingying.searchapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -52,8 +53,10 @@ public class ProfilePage extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent i = new Intent(ProfilePage.this,myHomepage.class);
+                i.putExtra("accountUsername",carryUsername);
+                i.putExtra("accountEmail", carryUserEmail);
+                ProfilePage.this.startActivity(i);
             }
         });
         reviewHistoryList= new ArrayList<ratingPost>();
