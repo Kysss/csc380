@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<group android:checkableBehavior="single">
+    <item
+        android:id = "@+id/about_id"
+        android:title="About"
+        android:icon = "@drawable/about_icon"
+        >
+    </item>
+    <item
+        android:id = "@+id/profile_id"
+        android:title="My Profile"
+        android:icon = "@drawable/profile_icon"
+        >
+    </item>
+    <item
+        android:id = "@+id/search_id"
+        android:title="Search"
+        android:icon = "@drawable/search_icon"
+        >
+    </item>
+    <item
+        android:id = "@+id/faq_id"
+        android:title="FAQ/Help"
+        android:icon = "@drawable/faq_icon"
+        >
+    </item>
+    <item
+        android:id = "@+id/setting_id"
+        android:title="Setting"
+        android:icon = "@drawable/setting_icon"
+        >
+    </item>
+    <item
+        android:id = "@+id/logout_id"
+        android:title="Logout"
+        android:icon = "@drawable/logout_icon"
+        >
+    </item>
+
+</group>
+</menu>
