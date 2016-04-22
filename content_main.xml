@@ -10,11 +10,19 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.yingying.searchapp.MainSearch"
-    tools:showIn="@layout/activity_main">
+    >
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="Display:Low to High"
+        android:id="@+id/checkBox"
+        android:layout_gravity="left|center_vertical" />
 
     <ExpandableListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_below="@id/checkBox"
         android:id = "@+id/expandableListView_search"></ExpandableListView>
 </RelativeLayout>

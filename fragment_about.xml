@@ -1,0 +1,44 @@
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.yingying.searchapp.SearchFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="About"
+        android:id="@+id/aboutText"
+        android:gravity="center"
+        android:textSize = "35dp"
+        android:textStyle = "bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="       This restaurant searching application is aimed to provide users a platform to find good restaurants and to post ratings for restaurants.
+         Instead of believing in restaurants’ own beautiful advertisements, users would be able to find real restaurant critiques and reviews from other users who have already experienced or consumed in these restaurants. This will ensure that they, as users, will be able to make the best decision possible upon choosing restaurants.
+         Food is a significant part of human lives, and eating out is also an important part of people’s social experiences. Being able to find decent restaurants can be a pain, thus the aim of our restaurant searching application is to lighten this load by having a restaurant rating system, which are mainly composed by user critiques and carefully maintained by administrators.
+        This ensures a lower likelihood of a restaurant getting false reviews, and also saves consumers from spending money and time on terrible dining experiences."
+        android:id="@+id/textView8"
+        android:layout_below="@+id/aboutText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="20dp" />
+
+
+
+
+</RelativeLayout>
+</ScrollView>

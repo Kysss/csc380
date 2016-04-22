@@ -5,22 +5,51 @@
         android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop = "true"
         android:id = "@+id/child_icon"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id = "@+id/child_text"
         android:paddingLeft="45sp"
         android:paddingTop="12sp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop= "true"
-        android:layout_toRightOf = "@+id/child_icon"
         android:text = "Place Holder"
-        android:textAppearance = "?android:textAppearanceMedium"/>
+        android:textAppearance = "?android:textAppearanceMedium"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/child_icon"
+        android:layout_toEndOf="@+id/child_icon" />
+
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id = "@+id/child_rating"
+
+            android:numStars="5"
+            android:stepSize="0.5"
+            android:isIndicator="true"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_below="@+id/child_text"
+            android:layout_toRightOf="@+id/child_icon"
+            android:layout_toEndOf="@+id/child_icon"
+            android:layout_marginLeft="40dp"
+            android:layout_marginStart="40dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="place holder"
+            android:id="@+id/child_type"
+            android:layout_below="@+id/child_rating"
+            android:layout_toRightOf="@+id/child_icon"
+            android:layout_toEndOf="@+id/child_icon"
+            android:paddingLeft="45dp" />
+
+
     </RelativeLayout>
 </ScrollView>
