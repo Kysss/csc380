@@ -8,7 +8,7 @@
         android:layout_width="69dp"
         android:layout_height="93dp"
         android:id="@+id/reviewIcon"
-        android:src="@drawable/reviews_icon"
+        android:src="@drawable/cat"
         android:layout_gravity="center_horizontal|top"
         android:layout_below="@+id/reviewPostDate"
         android:layout_alignParentLeft="true"
