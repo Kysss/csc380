@@ -64,24 +64,27 @@ public class RestaurantDatabaseOperations extends SQLiteOpenHelper {
                 return SR;
         }
 
-        public void updateAverageRating(RestaurantDatabaseOperations rdop, Restaurant r,String newAverage){
+        public void deleteRestaurant(RestaurantDatabaseOperations rdop,String resName, String contact){
+                String selection = RestaurantTableData.RestaurantTableInfo.RES_NAME +" LIKE ? AND " +
+                        RestaurantTableData.RestaurantTableInfo.RES_CONTACT+" LIKE ?";
+                String args[] = {resName,contact};
                 SQLiteDatabase SQ = rdop.getWritableDatabase();
-                ContentValues cv = new ContentValues();
-                r.setAverage(newAverage);
-                cv.put(RestaurantTableData.RestaurantTableInfo.RES_NAME, r.getName());
-                cv.put(RestaurantTableData.RestaurantTableInfo.RES_ADDRESS,r.getAddress());
-                cv.put(RestaurantTableData.RestaurantTableInfo.RES_CONTACT,r.getContact());
-                cv.put(RestaurantTableData.RestaurantTableInfo.RES_OPERATION_HOURS,r.getHours());
-           //   cv.put(RestaurantTableData.RestaurantTableInfo.RES_AVERAGE_RATING,r.getAverage());
-                cv.put(RestaurantTableData.RestaurantTableInfo.RES_TYPES, r.getType());
-                SQ.update(RestaurantTableData.RestaurantTableInfo.RES_TABLE_NAME, cv, RestaurantTableData.RestaurantTableInfo.RES_AVERAGE_RATING
-                        + "= ?", new String[]{String.valueOf(newAverage)});
-                SQ.close();
+                SQ.delete(RestaurantTableData.RestaurantTableInfo.RES_TABLE_NAME,selection,args);
+
+        }
+        public void updateRestaurantAverageRating(RestaurantDatabaseOperations rdop,
+                                                  String resName,
+                                                  String resContact,
+                                                  String newAverage){
+                SQLiteDatabase SQ = rdop.getWritableDatabase();
+                String selection = RestaurantTableData.RestaurantTableInfo.RES_NAME + " LIKE ? AND " + RestaurantTableData.RestaurantTableInfo.RES_CONTACT + " LIKE ?";
+                String args[] = {resName,resContact};
+                ContentValues values = new ContentValues();
+                values.put(RestaurantTableData.RestaurantTableInfo.RES_AVERAGE_RATING,newAverage);
+                SQ.update(RestaurantTableData.RestaurantTableInfo.RES_TABLE_NAME,values,selection,args);
         }
 
 
 
-
-
-
 }
+

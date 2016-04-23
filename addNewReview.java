@@ -66,35 +66,38 @@ public class addNewReview extends AppCompatActivity {
         postCommentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-                Date date = new Date();
-                String reviewDate = dateFormat.format(date);
-                ratingPost rp = new ratingPost(carryResName, reviewDate, carryUsername, carryUserEmail, Float.toString(rb.getRating()),
-                        comment.getText().toString());
 
-                RatingDatabaseOperations RatingDB = new RatingDatabaseOperations(CTX);
-                RatingDB.putInformation(RatingDB, rp.getResName(), rp.getPostDate(), carryUsername, carryUserEmail,
-                        rp.getRating(), rp.getReview());
-                Toast.makeText(getBaseContext(), "Review posted successfully", Toast.LENGTH_LONG).show();
+                if(rb.getRating()==0){
+                    Toast.makeText(getBaseContext(),"Sorry you have not yet chosen a rating..",Toast.LENGTH_LONG).show();
+                }else {
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                    Date date = new Date();
+                    String reviewDate = dateFormat.format(date);
+                    ratingPost rp = new ratingPost(carryResName, reviewDate, carryUsername, carryUserEmail, Float.toString(rb.getRating()),
+                            comment.getText().toString());
 
-                Restaurant thisRes = getRestaurantByName(carryResName);
-                String newAverage = calculateAverageRating(carryResName);
+                    RatingDatabaseOperations RatingDB = new RatingDatabaseOperations(CTX);
+                    RatingDB.putInformation(RatingDB, rp.getResName(), rp.getPostDate(), carryUsername, carryUserEmail,
+                            rp.getRating(), rp.getReview());
+                    Toast.makeText(getBaseContext(), "Review posted successfully", Toast.LENGTH_LONG).show();
 
-//                updateAverageRating(new RestaurantDatabaseOperations(CTX),thisRes,newAverage);
-                finish();
-                Intent i = new Intent(addNewReview.this, RestaurantPage.class);
-                i.putExtra("accountUsername", carryUsername);
-                i.putExtra("accountEmail", carryUserEmail);
-                i.putExtra("RestaurantName", carryResName);
-                addNewReview.this.startActivity(i);
+                    Restaurant thisRes = getRestaurantByName(carryResName);
+                    String newAverage = calculateAverageRating(carryResName);
 
+                    RestaurantDatabaseOperations resDB = new RestaurantDatabaseOperations(CTX);
+                    resDB.updateRestaurantAverageRating(resDB, thisRes.getName(), thisRes.getContact(), newAverage);
+                    finish();
+                    Intent i = new Intent(addNewReview.this, RestaurantPage.class);
+                    i.putExtra("accountUsername", carryUsername);
+                    i.putExtra("accountEmail", carryUserEmail);
+                    i.putExtra("RestaurantName", carryResName);
+                    addNewReview.this.startActivity(i);
+                }
             }
         });
 
 
     }
-
-
     private String calculateAverageRating(String resName) {
         //going through ratingDatabase
         String newAverage;
@@ -123,31 +126,15 @@ public class addNewReview extends AppCompatActivity {
     }
 
 
-  //  public void updateAverageRating(RestaurantDatabaseOperations rdop, Restaurant r, String newAverage) {
-  //      SQLiteDatabase SQ = rdop.getWritableDatabase();
-   //     ContentValues cv = new ContentValues();
-    //    //r.setAverage(newAverage);
-     //   cv.put(RestaurantTableData.RestaurantTableInfo.RES_NAME, r.getName());
-       // cv.put(RestaurantTableData.RestaurantTableInfo.RES_ADDRESS, r.getAddress());
-       // cv.put(RestaurantTableData.RestaurantTableInfo.RES_CONTACT, r.getContact());
-       // cv.put(RestaurantTableData.RestaurantTableInfo.RES_OPERATION_HOURS, r.getHours());
-        //   cv.put(RestaurantTableData.RestaurantTableInfo.RES_AVERAGE_RATING,r.getAverage());
-       // cv.put(RestaurantTableData.RestaurantTableInfo.RES_TYPES, r.getType());
-       // SQ.update(RestaurantTableData.RestaurantTableInfo.RES_TABLE_NAME, cv, RestaurantTableData.RestaurantTableInfo.RES_AVERAGE_RATING
-        //        + "= ?", new String[]{String.valueOf(newAverage)});
-        //SQ.close();
-   // }
-
-
     public Restaurant getRestaurantByName(String res) {
-        Restaurant r = null;
+        Restaurant r=null;
         RestaurantDatabaseOperations ResDOP = new RestaurantDatabaseOperations(CTX);
         Cursor cr = ResDOP.getInformation(ResDOP);
         cr.moveToFirst();
         while (!cr.isAfterLast()) {
-            if (cr.getString(0) != null && cr.getString(0).equalsIgnoreCase(res)) {
+            if (cr.getString(0) != null && cr.getString(0).toLowerCase().equalsIgnoreCase(res)) {
                 r = new Restaurant(cr.getString(0),cr.getString(1),cr.getString(2),cr.getString(3),cr.getString(4),cr.getString(5));
-
+                break;
             }else{
                 r = null;
             }

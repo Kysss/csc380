@@ -60,14 +60,7 @@ class ProfileHistoryAdapter extends BaseAdapter{
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        //   LayoutInflater reviewInflater = LayoutInflater.from(getContext());
-        //   View customView = reviewInflater.inflate(R.layout.single_review, parent, false);
-        //   String singleContent = getItem(position);
-        //   TextView text = (TextView)customView.findViewById(R.id.reviewPostContent);
-        //   ImageView icon = (ImageView)customView.findViewById(R.id.reviewIcon);
-        //  text.setText(singleContent);
-        //  icon.setImageResource(R.drawable.reviews_icon)
-        //  return customView;
+
         ViewHolder postHolder = null;
         if(convertView==null){
             postHolder = new ViewHolder();
@@ -83,7 +76,7 @@ class ProfileHistoryAdapter extends BaseAdapter{
         }
 
         postHolder.date.setText(reviewPosts.get(position).postdate);
-        postHolder.image.setImageResource(R.drawable.reviews_icon);
+        postHolder.image.setImageResource(R.drawable.cat);
         postHolder.resName.setText(reviewPosts.get(position).resName);
         postHolder.rating.setRating(Float.valueOf(reviewPosts.get(position).rating));
         postHolder.reviewContent.setText(reviewPosts.get(position).content);

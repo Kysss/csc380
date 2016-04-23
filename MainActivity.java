@@ -2,6 +2,7 @@ package com.yingying.searchapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -34,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
 
    //     RateDB.putInformation(RateDB,"Kiyomi",reviewDate,"yxia","yxia@oswego,edu","4.5","Good service.");
 
+        DatabseOperations DO = new DatabseOperations(CTX);
+       // DO.deleteUser(DO,"yxia","yxia@oswego.edu");
+        DO.updateInformation(DO,"yxia","testing","hello");
 
 
         forget.setOnClickListener(new View.OnClickListener() {

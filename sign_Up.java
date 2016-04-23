@@ -14,7 +14,7 @@ import android.widget.Toast;
 public class sign_Up extends AppCompatActivity {
     EditText fName, lName, eMail, username, password, retypePassword, securityQ, securityA;
     String userfirstName, userLastName, userEmail, userName, userPassword, confirmPassword, securityQuestion, securityAnswer;
-    String userType = null;
+    String userType = "User";
 
     Button SUN;
     Context ctx = this;
@@ -43,13 +43,25 @@ public class sign_Up extends AppCompatActivity {
                 confirmPassword = retypePassword.getText().toString();
                 securityQuestion = securityQ.getText().toString();
                 securityAnswer = securityA.getText().toString();
+                DatabseOperations DB = new DatabseOperations(ctx);
 
                 if (!(userPassword.equals(confirmPassword))) {
                     Toast.makeText(getBaseContext(), "Passwords are not matching.", Toast.LENGTH_LONG).show();
                     password.setText("");
                     retypePassword.setText("");
+
+                }else if(DB.existUsername(DB,userName)==true && DB.existEmailname(DB,userEmail)==true){
+                    Toast.makeText(getBaseContext(), "Username and email address already associated with an account.Please try again.", Toast.LENGTH_LONG).show();
+                    username.setText("");
+                    eMail.setText("");
+                }else if (DB.existUsername(DB,userName)==true) {
+                    Toast.makeText(getBaseContext(), "Username already exist. Please try again..", Toast.LENGTH_LONG).show();
+                    username.setText("");
+                }else if(DB.existEmailname(DB,userEmail)==true){
+                    Toast.makeText(getBaseContext(), "This email has already been associated with an account.", Toast.LENGTH_LONG).show();
+                    eMail.setText("");
                 } else {
-                    DatabseOperations DB = new DatabseOperations(ctx);
+                    DB = new DatabseOperations(ctx);
                     DB.putInformation(DB, userName, userPassword, userLastName, userfirstName, userEmail, securityQuestion, securityAnswer, userType);
                     //send Email here
                     String e = "You have successfully registered a new account. Your user name is: "+userName + " ,and your email is:" +

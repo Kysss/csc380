@@ -60,10 +60,20 @@ public class RatingDatabaseOperations extends SQLiteOpenHelper {
         String[] coloumns = {RatingTableData.RatingTableInfo.RES_NAME,RatingTableData.RatingTableInfo.REVIEW_DATE,RatingTableData.RatingTableInfo.USER_NAME,
                 RatingTableData.RatingTableInfo.USER_EMAIL,
                 RatingTableData.RatingTableInfo.RATING,RatingTableData.RatingTableInfo.USER_REVIEW};
-        Cursor SR = SQ.query(RatingTableData.RatingTableInfo.TABLE_NAME,coloumns,null,null,null,null,null);
+        Cursor SR = SQ.query(RatingTableData.RatingTableInfo.TABLE_NAME, coloumns, null, null, null, null, null);
         return SR;
     }
 
+
+
+    public void deleteReview(RatingDatabaseOperations rdop, String resName, String username)
+    {
+        String selection = RatingTableData.RatingTableInfo.RES_NAME + " LIKE ? AND " +
+                RatingTableData.RatingTableInfo.USER_NAME+" LIKE ?";
+        String args[] = {resName,username};
+        SQLiteDatabase SQ = rdop.getWritableDatabase();
+        SQ.delete(RatingTableData.RatingTableInfo.TABLE_NAME,selection,args);
+    }
 
 
 

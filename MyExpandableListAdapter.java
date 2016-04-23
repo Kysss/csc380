@@ -148,7 +148,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
                 ArrayList<ChildRow> newList = new ArrayList<ChildRow>();
 
                 for(ChildRow childRow:childlist){
-                    if(childRow.getText().toLowerCase().contains(query)){
+                    if(childRow.getText().toLowerCase().contains(query)||childRow.getType().toLowerCase().contains(query)){
                         newList.add(childRow);
                     }
                 }
