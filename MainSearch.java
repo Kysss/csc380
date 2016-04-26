@@ -1,14 +1,21 @@
 package com.yingying.searchapp;
 
+import android.Manifest;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.hardware.display.DisplayManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +27,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ExpandableListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 
 import com.google.android.gms.appindexing.Action;
@@ -30,7 +38,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainSearch extends AppCompatActivity
-        implements SearchView.OnQueryTextListener, SearchView.OnCloseListener {
+        implements SearchView.OnQueryTextListener, SearchView.OnCloseListener,LocationListener {
+    private static final int REQUEST_CODE_LOCATION = 2;
     Restaurant[] rankedRestaurant = null;
     static String carryUsername;
     static String carryUserEmail;
@@ -49,21 +58,30 @@ public class MainSearch extends AppCompatActivity
     private MenuItem searchItem;
     public HashMap<String, Restaurant> resHM = new HashMap<String, Restaurant>();
     public HashMap<String, Profile> userHM = new HashMap<String, Profile>();
-
+    double longtitude = 0.0;
+    double latitude = 0.0;
+    GPSTracker gps;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+    private LocationManager locationManager;
+    private String provider;
+    private String mprovider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_main);
 
+
         Intent intent = getIntent();
         carryUsername = intent.getStringExtra("accountUsername");
         carryUserEmail = intent.getStringExtra("accountEmail");
+
+        this.getLocation();
+        Toast.makeText(MainSearch.this, "Long:"+ longtitude + " latitude:"+ latitude, Toast.LENGTH_LONG).show();
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -389,5 +407,56 @@ public class MainSearch extends AppCompatActivity
         );
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
+    }
+
+
+    public Restaurant[] getNearby(Restaurant [] rList){
+        for(Restaurant r: rList){
+
+        }
+        return rList;
+    }
+
+
+    @Override
+    public void onLocationChanged(Location location) {
+        longtitude = location.getLongitude();
+        latitude=location.getLatitude();
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
+
+    public void getLocation(){
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+
+        mprovider = locationManager.getBestProvider(criteria, false);
+
+        if (mprovider != null && !mprovider.equals("")) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            Location location = locationManager.getLastKnownLocation(mprovider);
+            locationManager.requestLocationUpdates(mprovider, 15000, 1, this);
+       //     locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 15000, 1, this);
+
+            if (location != null)
+                onLocationChanged(location);
+            else
+                Toast.makeText(getBaseContext(), "No Location Provider Found Check Your Code", Toast.LENGTH_SHORT).show();
+        }
     }
 }

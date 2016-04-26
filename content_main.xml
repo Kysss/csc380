@@ -18,6 +18,13 @@
         android:text="Display:Low to High"
         android:id="@+id/checkBox"
         android:layout_gravity="left|center_vertical" />
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       android:layout_toLeftOf="@+id/checkBox"
+        android:text="Nearby"
+        android:id="@+id/nearbyCheckBox"
+        android:layout_gravity="left|center_vertical" />
 
     <ExpandableListView
         android:layout_width="match_parent"

@@ -78,14 +78,6 @@ public class ForgetPassword extends AppCompatActivity implements UEconfirm.UELis
     @Override
     public void CheckSA(String securityAnswer, String username) {
         ReturnPassword returnPassword = (ReturnPassword) getSupportFragmentManager().findFragmentById(R.id.fragment3);
-       // try {
-      //      hashmap hm = new hashmap("Userpass.csv", "Restaurant.csv");
-       //     if (hm.profile.get(username).getSecurityAnswer().equalsIgnoreCase(securityAnswer)) {
-      //          returnPassword.setPassword(hm.profile.get(username).getPassword());
-      //      }
-      //  } catch (IOException e) {
-      //      System.out.println("Error:" + e.getMessage());
-      //  }
 
         if(answer.equalsIgnoreCase(securityAnswer)){
             returnPassword.setPassword(pass);

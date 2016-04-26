@@ -100,8 +100,11 @@ public class myHomepage extends AppCompatActivity {
                         fragmentTransaction.commit();
                         getSupportActionBar().setTitle("Setting");
                         item.setChecked(true);
-                        drawerLayout.closeDrawers();
-                        break;
+                       drawerLayout.closeDrawers();
+                       break;
+
+
+
                     case R.id.faq_id:
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.main_container, new FAQ());
