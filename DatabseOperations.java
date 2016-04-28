@@ -82,7 +82,7 @@ public class DatabseOperations extends SQLiteOpenHelper {
         String args[] = {username,userpass};
         ContentValues values = new ContentValues();
         values.put(TableData.TableInfo.USER_PASS, newpass);
-        SQ.update(TableData.TableInfo.TABLE_NAME,values,selection,args);
+        SQ.update(TableData.TableInfo.TABLE_NAME, values, selection, args);
 
     }
 
@@ -119,7 +119,14 @@ public class DatabseOperations extends SQLiteOpenHelper {
     }
 
 
-
+    public void deleteAccount(DatabseOperations rdop, String username, String email)
+    {
+        String selection = TableData.TableInfo.USER_NAME + " LIKE ? AND " +
+                TableData.TableInfo.USER_EMAIL+" LIKE ?";
+        String args[] = {username,email};
+        SQLiteDatabase SQ = rdop.getWritableDatabase();
+        SQ.delete(TableData.TableInfo.TABLE_NAME,selection,args);
+    }
 
 
 }

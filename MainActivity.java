@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         DatabseOperations DO = new DatabseOperations(CTX);
        // DO.deleteUser(DO,"yxia","yxia@oswego.edu");
-        DO.updateInformation(DO,"yxia","testing","hello");
+      //  DO.updateInformation(DO,"yxia","testing","hello");
 
 
         forget.setOnClickListener(new View.OnClickListener() {
