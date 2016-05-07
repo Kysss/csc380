@@ -1,6 +1,8 @@
 package com.yingying.searchapp;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,6 +27,17 @@ Context ctx = this;
         reshours = (EditText)findViewById(R.id.editText9);
         resrating = (EditText)findViewById(R.id.editText10);
         resttype = (EditText)findViewById(R.id.editText11);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(addRestaurant.this,myHomepage.class);
+                i.putExtra("accountUsername",MainSearch.carryUsername);
+                i.putExtra("accountEmail", MainSearch.carryUserEmail);
+                addRestaurant.this.startActivity(i);
+            }
+        });
 
        addButton = (Button)findViewById(R.id.button7);
         addButton.setOnClickListener(new View.OnClickListener() {

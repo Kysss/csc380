@@ -64,14 +64,16 @@ public class RestaurantDatabaseOperations extends SQLiteOpenHelper {
                 return SR;
         }
 
-        public void deleteRestaurant(RestaurantDatabaseOperations rdop,String resName, String contact){
-                String selection = RestaurantTableData.RestaurantTableInfo.RES_NAME +" LIKE ? AND " +
-                        RestaurantTableData.RestaurantTableInfo.RES_CONTACT+" LIKE ?";
-                String args[] = {resName,contact};
+        public void deleteRestaurant(RestaurantDatabaseOperations rdop,String resName){
+                String selection = RestaurantTableData.RestaurantTableInfo.RES_NAME +" LIKE ?";
+                String args[] = {resName};
                 SQLiteDatabase SQ = rdop.getWritableDatabase();
                 SQ.delete(RestaurantTableData.RestaurantTableInfo.RES_TABLE_NAME,selection,args);
 
         }
+
+
+
         public void updateRestaurantAverageRating(RestaurantDatabaseOperations rdop,
                                                   String resName,
                                                   String resContact,
@@ -83,6 +85,8 @@ public class RestaurantDatabaseOperations extends SQLiteOpenHelper {
                 values.put(RestaurantTableData.RestaurantTableInfo.RES_AVERAGE_RATING,newAverage);
                 SQ.update(RestaurantTableData.RestaurantTableInfo.RES_TABLE_NAME,values,selection,args);
         }
+
+
 
 
 

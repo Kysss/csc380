@@ -24,19 +24,13 @@ public class MainActivity extends AppCompatActivity {
 
         //restaurant database initiate
         RestaurantDatabaseOperations RDB = new RestaurantDatabaseOperations(CTX);
-      //  RDB.putResInformation(RDB, "Domino's", "60 SW 9th St, Oswego, NY 13126","(315) 343-7250","10:30AM–12AM","3.2","American");
-       // RDB.putResInformation(RDB, "Kiyomi", "311 W Seneca St, Oswego, NY 13126", "(315) 343-8889", "11AM–10PM", "3.3", "Japanese,Chinese");
 
         //rating databse initiate
         RatingDatabaseOperations RateDB = new RatingDatabaseOperations(CTX);
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = new Date();
-        String reviewDate = dateFormat.format(date);
 
-   //     RateDB.putInformation(RateDB,"Kiyomi",reviewDate,"yxia","yxia@oswego,edu","4.5","Good service.");
 
-        DatabseOperations DO = new DatabseOperations(CTX);
-       // DO.deleteUser(DO,"yxia","yxia@oswego.edu");
+     //   DatabseOperations DO = new DatabseOperations(CTX);
+     //   DO.deleteUser(DO,"user","usertest@gmail.com");
       //  DO.updateInformation(DO,"yxia","testing","hello");
 
 

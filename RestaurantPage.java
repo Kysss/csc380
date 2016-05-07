@@ -6,15 +6,15 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -137,6 +137,22 @@ public class RestaurantPage extends AppCompatActivity {
         ListView myList = (ListView) findViewById(R.id.reviewListView);
         ReviewListAdapter reviewListAdapter = new ReviewListAdapter(this, reviewList);
         myList.setAdapter(reviewListAdapter);
+        myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent i = new Intent(CTX, ProfilePage.class);
+                i.putExtra("RestaurantName", reviewList.get(position).getResName());
+                i.putExtra("accountUsername", RestaurantPage.carryUsername);
+                i.putExtra("accountEmail", RestaurantPage.carryUserEmail);
+                Toast.makeText(CTX, reviewList.get(position).resName, Toast.LENGTH_LONG).show();
+                CTX.startActivity(i);
+
+
+
+
+            }
+        });
 
 
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();

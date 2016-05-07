@@ -75,7 +75,7 @@ public class myHomepage extends AppCompatActivity {
                         intent3.putExtra("accountEmail", carryUserEmail);
                         startActivity(intent3);
                         item.setChecked(true);
-                    //    drawerLayout.closeDrawers();
+                        drawerLayout.closeDrawers();
                         break;
                     case R.id.profile_id:
                         item.setChecked(true);
@@ -86,7 +86,7 @@ public class myHomepage extends AppCompatActivity {
 
                         startActivity(intent);
                         item.setChecked(true);
-                   //     drawerLayout.closeDrawers();
+                       drawerLayout.closeDrawers();
                         break;
 
                     case R.id.setting_id:
@@ -100,7 +100,7 @@ public class myHomepage extends AppCompatActivity {
                         fragmentTransaction.commit();
                         getSupportActionBar().setTitle("Setting");
                         item.setChecked(true);
-                      // drawerLayout.closeDrawers();
+                       drawerLayout.closeDrawers();
                        break;
 
                     case R.id.faq_id:

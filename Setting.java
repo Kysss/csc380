@@ -48,6 +48,8 @@ public class Setting extends Fragment {
         carryUserType = myHomepage.carryAccountType;
        // carryUserType = getActivity().getIntent().getStringExtra("accountType");
 
+
+
     view = inflater.inflate(R.layout.admin_fragment_setting, container,false);
     oldPassword = (EditText) view.findViewById(R.id.editText);
     newPassword = (EditText) view.findViewById(R.id.editText2);
@@ -67,6 +69,7 @@ public class Setting extends Fragment {
 
                 Toast.makeText(getActivity(), "Changing password successful. Please login again.", Toast.LENGTH_LONG).show();
                 Intent intent2 = new Intent(getActivity(), sign_In.class);
+
                 startActivity(intent2);
             } else {
                 Toast.makeText(getActivity(), "Please try again.", Toast.LENGTH_LONG).show();
@@ -78,7 +81,7 @@ public class Setting extends Fragment {
         }
     });
 
-        Button deleteUser = (Button)view.findViewById(R.id.button2);
+     /*   Button deleteUser = (Button)view.findViewById(R.id.button2);
         deleteUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,6 +97,8 @@ public class Setting extends Fragment {
                 }
             }
         });
+        */
+
         Button addRes = (Button)view.findViewById(R.id.button3);
         addRes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,18 +114,22 @@ public class Setting extends Fragment {
             }
         });
 
-      /*  Button deleteRes = (Button)view.findViewById(R.id.button4);
+        Button deleteRes = (Button)view.findViewById(R.id.button4);
         deleteRes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(carryUserType==null || !carryUserType.equalsIgnoreCase("Admin")){
                     Toast.makeText(getActivity(), "Admin only.", Toast.LENGTH_LONG).show();
                 }else{
-                    Intent intent2 = new Intent(getActivity(),TODO);
+                    Intent intent2 = new Intent(getActivity(),adminDeleteRes.class);
+                    intent2.putExtra("accountUsername", carryUsername);
+                    intent2.putExtra("accountEmail", carryUserEmail);
                     startActivity(intent2);
                 }
             }
         });
+
+
         Button deleteReview = (Button)view.findViewById(R.id.button5);
         deleteReview.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,11 +137,13 @@ public class Setting extends Fragment {
                 if(carryUserType==null || !carryUserType.equalsIgnoreCase("Admin")){
                     Toast.makeText(getActivity(), "Admin only.", Toast.LENGTH_LONG).show();
                 }else{
-                    Intent intent2 = new Intent(getActivity(),TODO);
+                    Intent intent2 = new Intent(getActivity(),adminDeleteReview.class);
+                    intent2.putExtra("accountUsername", carryUsername);
+                    intent2.putExtra("accountEmail", carryUserEmail);
                     startActivity(intent2);
                 }
             }
-        });*/
+        });
 
 
         return view;

@@ -13,15 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 import static android.view.View.*;
 
-/**
- * Created by Reeves on 4/7/16.
- */
+
 public class MyExpandableListAdapter extends BaseExpandableListAdapter {
     private Context context;
     private ArrayList<ParentRow> parentRowList;
@@ -103,6 +99,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
       //  childIcon.setImageResource(R.mipmap.ic_launcher);
         childIcon.setImageResource(R.drawable.dining_icon);
 
+
         final TextView childText = (TextView) convertView.findViewById(R.id.child_text);
         childText.setText(childRow.getText().trim());
 
@@ -114,18 +111,21 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
         final View finalConvertView = convertView;
        childText.setOnClickListener(new View.OnClickListener() {
-            @Override
+           @Override
            public void onClick(View v) {
-                Intent i = new Intent(context, RestaurantPage.class);
-                i.putExtra("RestaurantName", childText.getText());
-                i.putExtra("accountUsername",MainSearch.carryUsername);
-                i.putExtra("accountEmail",MainSearch.carryUserEmail);
+               Intent i = new Intent(context, RestaurantPage.class);
+               i.putExtra("RestaurantName", childText.getText());
+               i.putExtra("accountUsername", MainSearch.carryUsername);
+               i.putExtra("accountEmail", MainSearch.carryUserEmail);
 
-                context.startActivity(i);
+               context.startActivity(i);
 
-                Toast.makeText(context,childText.getText(),Toast.LENGTH_LONG).show();
+               Toast.makeText(context, childText.getText(), Toast.LENGTH_LONG).show();
            }
-        });
+       });
+
+
+
         return convertView;
     }
 
@@ -150,6 +150,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
                 for(ChildRow childRow:childlist){
                     if(childRow.getText().toLowerCase().contains(query)||childRow.getType().toLowerCase().contains(query)){
                         newList.add(childRow);
+
                     }
                 }
 

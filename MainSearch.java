@@ -39,7 +39,7 @@ import java.util.HashMap;
 
 public class MainSearch extends AppCompatActivity
         implements SearchView.OnQueryTextListener, SearchView.OnCloseListener,LocationListener {
-    private static final int REQUEST_CODE_LOCATION = 2;
+   // private static final int REQUEST_CODE_LOCATION = 2;
     Restaurant[] rankedRestaurant = null;
     static String carryUsername;
     static String carryUserEmail;

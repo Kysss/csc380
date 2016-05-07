@@ -66,11 +66,11 @@ public class RatingDatabaseOperations extends SQLiteOpenHelper {
 
 
 
-    public void deleteReview(RatingDatabaseOperations rdop, String resName, String username)
+    public void deleteReview(RatingDatabaseOperations rdop, String resName, String username,String date)
     {
         String selection = RatingTableData.RatingTableInfo.RES_NAME + " LIKE ? AND " +
-                RatingTableData.RatingTableInfo.USER_NAME+" LIKE ?";
-        String args[] = {resName,username};
+                RatingTableData.RatingTableInfo.USER_NAME+ " LIKE ? AND "+ RatingTableData.RatingTableInfo.REVIEW_DATE + " LIKE ?";
+        String args[] = {resName,username,date};
         SQLiteDatabase SQ = rdop.getWritableDatabase();
         SQ.delete(RatingTableData.RatingTableInfo.TABLE_NAME,selection,args);
     }
