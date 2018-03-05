@@ -1,7 +1,7 @@
 # csc380
 Restorator is our first phone application made using Android Studio. </br>
 Users are able to search up restaurants by names or by types. It is aimed to provide users an easy platform to find good restaurants and post ratings/reviews for restaurants. </br>
-For the same project organized in Android Studio's file structure, please see https://github.com/Kysss/restaurant-searching-app
+For the same project organized in Android Studio's file structure, please see here[https://github.com/Kysss/restaurant-searching-app]
 
 # Functionalities
 - SQL database for saving and retrieving data
